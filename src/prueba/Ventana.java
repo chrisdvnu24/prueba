@@ -18,4 +18,4 @@ public class Ventana extends JFrame
 		this.setBackground(Color.blue);
 		this.setLocation(200, 200);
 	}
-}
+} 
