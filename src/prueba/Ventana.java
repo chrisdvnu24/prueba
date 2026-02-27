@@ -23,14 +23,16 @@ public class Ventana extends JFrame
 {
 	public Ventana() 
 	{
-		this.setSize(1000, 650);
+		this.setSize(360, 480);
+		//this.setSize(1000, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setLayout(null);
 		//this.setResizable(false);
 		//login();
 		//registro();
-		usuarios();
+		//usuarios();
+		calculadora();
 		this.setVisible(true);
 	}
 
@@ -258,7 +260,128 @@ public class Ventana extends JFrame
 		tableScroll.setBounds(30, 180, 740, 300);
 		users.add(tableScroll);
 	}
+	
+	public void calculadora()
+	{
+		this.setTitle("Calculadora");
+		this.getContentPane().removeAll();
+		this.setLayout(null);
+		this.getContentPane().setBackground(new Color(28, 28, 28));
 
+		// ===== PANTALLA =====
+		JTextField pantalla = new JTextField("0");
+		pantalla.setBounds(30, 30, 290, 70);
+		pantalla.setFont(new Font("Arial", Font.BOLD, 30));
+		pantalla.setHorizontalAlignment(SwingConstants.RIGHT);
+		pantalla.setEditable(false);
+		pantalla.setBackground(Color.BLACK);
+		pantalla.setForeground(Color.WHITE);
+		this.add(pantalla);
+
+		// ===== FILA 1 =====
+		JButton ce = new JButton("CE");
+		ce.setBounds(30, 120, 65, 50);
+		ce.setFont(new Font("Arial", Font.BOLD, 18));
+		ce.setBackground(Color.ORANGE);
+		ce.setForeground(Color.WHITE);
+		this.add(ce);
+
+		JButton div = new JButton("/");
+		div.setBounds(105, 120, 65, 50);
+		div.setFont(new Font("Arial", Font.BOLD, 18));
+		div.setBackground(new Color(240, 157, 94));
+		div.setForeground(Color.WHITE);
+		this.add(div);
+
+		JButton mul = new JButton("*");
+		mul.setBounds(180, 120, 65, 50);
+		mul.setFont(new Font("Arial", Font.BOLD, 18));
+		mul.setBackground(new Color(240, 157, 94));
+		mul.setForeground(Color.WHITE);
+		this.add(mul);
+
+		JButton menos = new JButton("-");
+		menos.setBounds(255, 120, 65, 50);
+		menos.setFont(new Font("Arial", Font.BOLD, 18));
+		menos.setBackground(new Color(240, 157, 94));
+		menos.setForeground(Color.WHITE);
+		this.add(menos);
+
+		// ===== FILA 2 =====
+		JButton b7 = new JButton("7");
+		b7.setBounds(30, 180, 65, 50);
+		b7.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b7);
+
+		JButton b8 = new JButton("8");
+		b8.setBounds(105, 180, 65, 50);
+		b8.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b8);
+
+		JButton b9 = new JButton("9");
+		b9.setBounds(180, 180, 65, 50);
+		b9.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b9);
+
+		JButton mas = new JButton("+");
+		mas.setBounds(255, 180, 65, 110);
+		mas.setFont(new Font("Arial", Font.BOLD, 18));
+		mas.setBackground(new Color(240, 157, 94));
+		mas.setForeground(Color.WHITE);
+		this.add(mas);
+
+		// ===== FILA 3 =====
+		JButton b4 = new JButton("4");
+		b4.setBounds(30, 240, 65, 50);
+		b4.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b4);
+
+		JButton b5 = new JButton("5");
+		b5.setBounds(105, 240, 65, 50);
+		b5.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b5);
+
+		JButton b6 = new JButton("6");
+		b6.setBounds(180, 240, 65, 50);
+		b6.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b6);
+
+		// ===== FILA 4 =====
+		JButton b1 = new JButton("1");
+		b1.setBounds(30, 300, 65, 50);
+		b1.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b1);
+
+		JButton b2 = new JButton("2");
+		b2.setBounds(105, 300, 65, 50);
+		b2.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b2);
+
+		JButton b3 = new JButton("3");
+		b3.setBounds(180, 300, 65, 50);
+		b3.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b3);
+
+		JButton igual = new JButton("=");
+		igual.setBounds(255, 300, 65, 110);
+		igual.setFont(new Font("Arial", Font.BOLD, 18));
+		igual.setBackground(new Color(240, 157, 94));
+		igual.setForeground(Color.WHITE);
+		this.add(igual);
+
+		// ===== FILA 5 =====
+		JButton b0 = new JButton("0");
+		b0.setBounds(30, 360, 140, 50);
+		b0.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(b0);
+
+		JButton punto = new JButton(".");
+		punto.setBounds(180, 360, 65, 50);
+		punto.setFont(new Font("Arial", Font.BOLD, 18));
+		this.add(punto);
+
+		this.repaint();
+	}
 
 	public static void main(String[] args) 
 	{
