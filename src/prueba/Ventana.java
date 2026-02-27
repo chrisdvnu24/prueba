@@ -9,6 +9,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -23,16 +26,45 @@ public class Ventana extends JFrame
 {
 	public Ventana() 
 	{
-		this.setSize(360, 480);
-		//this.setSize(1000, 650);
+		//this.setSize(360, 480);
+		this.setSize(1000, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setLayout(null);
 		//this.setResizable(false);
+		
+		JMenuBar barra = new JMenuBar();
+		JMenu archivo = new JMenu("Archivo");
+		
+		JMenuItem open = new JMenuItem("Abrir");
+		JMenuItem close = new JMenuItem("Cerrar");
+		JMenuItem save = new JMenuItem("Guardar");
+		JMenuItem newFile = new JMenuItem("Nuevo");
+		
+		archivo.add(open);
+		archivo.add(close);
+		archivo.add(save);
+		archivo.add(newFile);
+		
+		barra.add(archivo);
+		archivo.addSeparator();
+
+		JMenu submenu = new JMenu("Otros");
+		archivo.add(submenu);
+		
+		JMenuItem menuItem = new JMenuItem("Hola mundo");
+		submenu.add(menuItem);
+		
+		menuItem = new JMenuItem("A");
+		submenu.add(menuItem);
+		
+		this.setJMenuBar(barra);
+		
 		//login();
 		//registro();
-		//usuarios();
-		calculadora();
+		usuarios();
+		//calculadora();
+		
 		this.setVisible(true);
 	}
 
