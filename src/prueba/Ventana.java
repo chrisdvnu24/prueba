@@ -1,9 +1,13 @@
 package prueba;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -33,6 +37,7 @@ public class Ventana extends JFrame
 		this.setLayout(null);
 		//this.setResizable(false);
 		
+		/*
 		JMenuBar barra = new JMenuBar();
 		JMenu archivo = new JMenu("Archivo");
 		
@@ -59,10 +64,11 @@ public class Ventana extends JFrame
 		submenu.add(menuItem);
 		
 		this.setJMenuBar(barra);
+		*/
 		
-		//login();
+		login();
 		//registro();
-		usuarios();
+		//usuarios();
 		//calculadora();
 		
 		this.setVisible(true);
@@ -70,70 +76,109 @@ public class Ventana extends JFrame
 
 	public void login() 
 	{
-		this.setTitle("Login");
-		JPanel contenedor = new JPanel();
-		contenedor.setBackground(new Color(28, 28, 28));
-		contenedor.setSize(500, 650);
-		contenedor.setLocation(0, 0);
-		contenedor.setLayout(null);
-		this.add(contenedor);
+	    this.setTitle("Login");
+	    this.getContentPane().removeAll();
+	    this.setLayout(null);
 
-		JLabel banner = new JLabel("LOGIN");
-		banner.setOpaque(true);
-		banner.setBackground(Color.WHITE);
-		banner.setForeground(Color.BLACK);
-		banner.setFont(new Font("Arial", Font.BOLD, 40));
-		banner.setHorizontalAlignment(JLabel.CENTER);
-		banner.setSize(300, 70);
-		banner.setLocation(100, 30);
-		contenedor.add(banner);
+	    // fondo
+	    JLabel fondo = new JLabel();
+	    fondo.setBounds(0, 0, 1000, 650);
+	    fondo.setIcon(new ImageIcon(getClass().getResource("fondo.jpg")));
+	    fondo.setLayout(null);
+	    this.add(fondo);
 
-		JLabel labelUsuario = new JLabel("USUARIO:");
-		labelUsuario.setForeground(Color.WHITE);
-		labelUsuario.setFont(new Font("Arial", Font.BOLD, 16));
-		labelUsuario.setSize(250, 30);
-		labelUsuario.setLocation(50, 130);
-		contenedor.add(labelUsuario);
+	    // panel
+	    JPanel panel = new JPanel();
+	    panel.setBounds(300, 120, 400, 400);
+	    panel.setBackground(new Color(0, 0, 0, 180));
+	    panel.setLayout(null);
+	    fondo.add(panel);
 
-		JTextField usuario = new JTextField();
-		usuario.setFont(new Font("Arial", Font.PLAIN, 16));
-		usuario.setSize(380, 35);
-		usuario.setLocation(50, 165);
-		contenedor.add(usuario);
+	    // titulo
+	    JLabel titulo = new JLabel("Login");
+	    titulo.setBounds(100, 40, 200, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 28));
+	    titulo.setForeground(Color.WHITE);
+	    titulo.setHorizontalAlignment(SwingConstants.CENTER);
+	    panel.add(titulo);
 
-		JLabel labelPass = new JLabel("CONTRASEÑA:");
-		labelPass.setForeground(Color.WHITE);
-		labelPass.setFont(new Font("Arial", Font.BOLD, 16));
-		labelPass.setSize(250, 30);
-		labelPass.setLocation(50, 220);
-		contenedor.add(labelPass);
+	    // icons
+	    ImageIcon userIcon = new ImageIcon(getClass().getResource("user.png"));
+	    ImageIcon passIcon = new ImageIcon(getClass().getResource("lock.png"));
 
-		JPasswordField pass = new JPasswordField();
-		pass.setSize(380, 35);
-		pass.setLocation(50, 255);
-		contenedor.add(pass);
+	    // tamaño icons
+	    Image imgUser = userIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+	    userIcon = new ImageIcon(imgUser);
 
-		JCheckBox recordar = new JCheckBox("Recordarme");
-		recordar.setOpaque(false);
-		recordar.setForeground(Color.WHITE);
-		recordar.setSize(120, 30);
-		recordar.setLocation(50, 300);
-		contenedor.add(recordar);
+	    Image imgPass = passIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+	    passIcon = new ImageIcon(imgPass);
 
-		JLabel olvido = new JLabel("¿Olvidó su contraseña?");
-		olvido.setForeground(Color.WHITE);
-		olvido.setSize(150, 30);
-		olvido.setLocation(280, 300);
-		contenedor.add(olvido);
+	    JLabel iconUser = new JLabel(userIcon);
+	    JLabel iconPass = new JLabel(passIcon);
 
-		JButton botonAcceder = new JButton("Acceder");
-		botonAcceder.setFont(new Font("Arial", Font.BOLD, 22));
-		botonAcceder.setBackground(Color.WHITE);
-		botonAcceder.setSize(180, 50);
-		botonAcceder.setLocation(150, 380);
-		contenedor.add(botonAcceder);
+	    // user
+	    JLabel labelUsuario = new JLabel("Usuario");
+	    labelUsuario.setBounds(80, 95, 260, 20);
+	    labelUsuario.setForeground(Color.WHITE);
+	    labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));
+	    panel.add(labelUsuario);
+
+	    JTextField usuario = new JTextField();
+	    usuario.setFont(new Font("Arial", Font.PLAIN, 16));
+	    usuario.setBorder(null);
+
+	    JPanel userPanel = new JPanel(new BorderLayout());
+	    userPanel.setBounds(80, 120, 260, 35);
+	    userPanel.setBackground(Color.WHITE);
+	    userPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+	    userPanel.add(iconUser, BorderLayout.WEST);
+	    userPanel.add(usuario, BorderLayout.CENTER);
+
+	    panel.add(userPanel);
+
+	    // password
+	    JLabel labelPass = new JLabel("Contraseña");
+	    labelPass.setBounds(80, 165, 260, 20);
+	    labelPass.setForeground(Color.WHITE);
+	    labelPass.setFont(new Font("Arial", Font.BOLD, 14));
+	    panel.add(labelPass);
+
+	    JPasswordField pass = new JPasswordField();
+	    pass.setFont(new Font("Arial", Font.PLAIN, 16));
+	    pass.setBorder(null);
+
+	    JPanel passPanel = new JPanel(new BorderLayout());
+	    passPanel.setBounds(80, 190, 260, 35);
+	    passPanel.setBackground(Color.WHITE);
+	    passPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+	    passPanel.add(iconPass, BorderLayout.WEST);
+	    passPanel.add(pass, BorderLayout.CENTER);
+
+	    panel.add(passPanel);
+
+	    // button
+	    JButton loginBtn = new JButton("Iniciar sesión");
+	    loginBtn.setBounds(125, 260, 150, 45);
+	    loginBtn.setFocusPainted(false);
+	    loginBtn.setFont(new Font("Arial", Font.BOLD, 18));
+	    loginBtn.setBackground(new Color(255, 155, 68));
+	    loginBtn.setBorder(new LineBorder(Color.WHITE, 2, true));
+	    panel.add(loginBtn);
+
+	    loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+	        public void mouseEntered(java.awt.event.MouseEvent evt) {
+	            loginBtn.setBackground(new Color(249, 176, 113));
+	        }
+
+	        public void mouseExited(java.awt.event.MouseEvent evt) {
+	            loginBtn.setBackground(new Color(255, 155, 68));
+	        }
+	    });
+
+	    this.repaint();
 	}
-
 	public void registro() 
 	{
 		JPanel register_container = new JPanel();
