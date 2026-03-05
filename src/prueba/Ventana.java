@@ -2,7 +2,9 @@ package prueba;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
@@ -30,8 +32,8 @@ public class Ventana extends JFrame
 {
 	public Ventana() 
 	{
-		//this.setSize(360, 480);
-		this.setSize(1000, 650);
+		this.setSize(360, 480);
+		//this.setSize(1200, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setLayout(null);
@@ -66,7 +68,8 @@ public class Ventana extends JFrame
 		this.setJMenuBar(barra);
 		*/
 		
-		login();
+		calculadoraLayout();
+		//login();
 		//registro();
 		//usuarios();
 		//calculadora();
@@ -345,7 +348,6 @@ public class Ventana extends JFrame
 		this.setLayout(null);
 		this.getContentPane().setBackground(new Color(28, 28, 28));
 
-		// ===== PANTALLA =====
 		JTextField pantalla = new JTextField("0");
 		pantalla.setBounds(30, 30, 290, 70);
 		pantalla.setFont(new Font("Arial", Font.BOLD, 30));
@@ -355,7 +357,6 @@ public class Ventana extends JFrame
 		pantalla.setForeground(Color.WHITE);
 		this.add(pantalla);
 
-		// ===== FILA 1 =====
 		JButton ce = new JButton("CE");
 		ce.setBounds(30, 120, 65, 50);
 		ce.setFont(new Font("Arial", Font.BOLD, 18));
@@ -384,7 +385,6 @@ public class Ventana extends JFrame
 		menos.setForeground(Color.WHITE);
 		this.add(menos);
 
-		// ===== FILA 2 =====
 		JButton b7 = new JButton("7");
 		b7.setBounds(30, 180, 65, 50);
 		b7.setFont(new Font("Arial", Font.BOLD, 18));
@@ -406,8 +406,7 @@ public class Ventana extends JFrame
 		mas.setBackground(new Color(240, 157, 94));
 		mas.setForeground(Color.WHITE);
 		this.add(mas);
-
-		// ===== FILA 3 =====
+		
 		JButton b4 = new JButton("4");
 		b4.setBounds(30, 240, 65, 50);
 		b4.setFont(new Font("Arial", Font.BOLD, 18));
@@ -423,7 +422,6 @@ public class Ventana extends JFrame
 		b6.setFont(new Font("Arial", Font.BOLD, 18));
 		this.add(b6);
 
-		// ===== FILA 4 =====
 		JButton b1 = new JButton("1");
 		b1.setBounds(30, 300, 65, 50);
 		b1.setFont(new Font("Arial", Font.BOLD, 18));
@@ -446,7 +444,6 @@ public class Ventana extends JFrame
 		igual.setForeground(Color.WHITE);
 		this.add(igual);
 
-		// ===== FILA 5 =====
 		JButton b0 = new JButton("0");
 		b0.setBounds(30, 360, 140, 50);
 		b0.setFont(new Font("Arial", Font.BOLD, 18));
@@ -458,6 +455,183 @@ public class Ventana extends JFrame
 		this.add(punto);
 
 		this.repaint();
+	}
+	
+	public void calculadoraLayout() 
+	{
+	    this.setTitle("Calculadora");
+	    this.setLayout(new BorderLayout(10,10));
+	    
+	    // Es la linea debajo de la pantalla
+	    this.getContentPane().setBackground(new Color(18,18,18));
+
+	    // Pantalla
+	    JTextField screen = new JTextField("0");
+	    screen.setFont(new Font("Arial", Font.BOLD, 40));
+	    screen.setHorizontalAlignment(SwingConstants.RIGHT);
+	    screen.setEditable(false);
+	    
+	    // Color gris oscuro = 10 10 10
+	    screen.setBackground(new Color(10,10,10));
+	    screen.setForeground(Color.WHITE);
+	    screen.setPreferredSize(new Dimension(400,80));
+
+	    this.add(screen, BorderLayout.NORTH);
+
+	    // Panel botones
+	    JPanel buttonPanel = new JPanel();
+	    buttonPanel.setLayout(new GridLayout(5,4,10,10));
+	    buttonPanel.setBackground(new Color(18,18,18));
+
+	    // Fila 1
+	    JButton ce = new JButton("CE");
+	    ce.setFont(new Font("Arial", Font.BOLD, 20));
+	    ce.setBackground(new Color(120,45,45));
+	    ce.setForeground(Color.WHITE);
+	    ce.setFocusPainted(false);
+	    ce.setBorderPainted(false);
+	    buttonPanel.add(ce);
+
+	    JButton div = new JButton("/");
+	    div.setFont(new Font("Arial", Font.BOLD, 20));
+	    div.setBackground(new Color(255,149,0));
+	    div.setForeground(Color.WHITE);
+	    div.setFocusPainted(false);
+	    div.setBorderPainted(false);
+	    buttonPanel.add(div);
+
+	    JButton mul = new JButton("*");
+	    mul.setFont(new Font("Arial", Font.BOLD, 20));
+	    mul.setBackground(new Color(255,149,0));
+	    mul.setForeground(Color.WHITE);
+	    mul.setFocusPainted(false);
+	    mul.setBorderPainted(false);
+	    buttonPanel.add(mul);
+
+	    JButton menos = new JButton("-");
+	    menos.setFont(new Font("Arial", Font.BOLD, 20));
+	    menos.setBackground(new Color(255,149,0));
+	    menos.setForeground(Color.WHITE);
+	    menos.setFocusPainted(false);
+	    menos.setBorderPainted(false);
+	    buttonPanel.add(menos);
+
+	    // Fila 2
+	    JButton b7 = new JButton("7");
+	    b7.setFont(new Font("Arial", Font.BOLD, 20));
+	    b7.setBackground(new Color(50,50,50));
+	    b7.setForeground(Color.WHITE);
+	    b7.setFocusPainted(false);
+	    b7.setBorderPainted(false);
+	    buttonPanel.add(b7);
+
+	    JButton b8 = new JButton("8");
+	    b8.setFont(new Font("Arial", Font.BOLD, 20));
+	    b8.setBackground(new Color(50,50,50));
+	    b8.setForeground(Color.WHITE);
+	    b8.setFocusPainted(false);
+	    b8.setBorderPainted(false);
+	    buttonPanel.add(b8);
+
+	    JButton b9 = new JButton("9");
+	    b9.setFont(new Font("Arial", Font.BOLD, 20));
+	    b9.setBackground(new Color(50,50,50));
+	    b9.setForeground(Color.WHITE);
+	    b9.setFocusPainted(false);
+	    b9.setBorderPainted(false);
+	    buttonPanel.add(b9);
+
+	    JButton mas = new JButton("+");
+	    mas.setFont(new Font("Arial", Font.BOLD, 20));
+	    mas.setBackground(new Color(255,149,0));
+	    mas.setForeground(Color.WHITE);
+	    mas.setFocusPainted(false);
+	    mas.setBorderPainted(false);
+	    buttonPanel.add(mas);
+
+	    // Fila 3
+	    JButton b4 = new JButton("4");
+	    b4.setFont(new Font("Arial", Font.BOLD, 20));
+	    b4.setBackground(new Color(50,50,50));
+	    b4.setForeground(Color.WHITE);
+	    b4.setFocusPainted(false);
+	    b4.setBorderPainted(false);
+	    buttonPanel.add(b4);
+
+	    JButton b5 = new JButton("5");
+	    b5.setFont(new Font("Arial", Font.BOLD, 20));
+	    b5.setBackground(new Color(50,50,50));
+	    b5.setForeground(Color.WHITE);
+	    b5.setFocusPainted(false);
+	    b5.setBorderPainted(false);
+	    buttonPanel.add(b5);
+
+	    JButton b6 = new JButton("6");
+	    b6.setFont(new Font("Arial", Font.BOLD, 20));
+	    b6.setBackground(new Color(50,50,50));
+	    b6.setForeground(Color.WHITE);
+	    b6.setFocusPainted(false);
+	    b6.setBorderPainted(false);
+	    buttonPanel.add(b6);
+
+	    JButton igual = new JButton("=");
+	    igual.setFont(new Font("Arial", Font.BOLD, 20));
+	    igual.setBackground(new Color(255,149,0));
+	    igual.setForeground(Color.WHITE);
+	    igual.setFocusPainted(false);
+	    igual.setBorderPainted(false);
+	    buttonPanel.add(igual);
+
+	    // Fila 4
+	    JButton b1 = new JButton("1");
+	    b1.setFont(new Font("Arial", Font.BOLD, 20));
+	    b1.setBackground(new Color(50,50,50));
+	    b1.setForeground(Color.WHITE);
+	    b1.setFocusPainted(false);
+	    b1.setBorderPainted(false);
+	    buttonPanel.add(b1);
+
+	    JButton b2 = new JButton("2");
+	    b2.setFont(new Font("Arial", Font.BOLD, 20));
+	    b2.setBackground(new Color(50,50,50));
+	    b2.setForeground(Color.WHITE);
+	    b2.setFocusPainted(false);
+	    b2.setBorderPainted(false);
+	    buttonPanel.add(b2);
+
+	    JButton b3 = new JButton("3");
+	    b3.setFont(new Font("Arial", Font.BOLD, 20));
+	    b3.setBackground(new Color(50,50,50));
+	    b3.setForeground(Color.WHITE);
+	    b3.setFocusPainted(false);
+	    b3.setBorderPainted(false);
+	    buttonPanel.add(b3);
+
+	    JButton b0 = new JButton("0");
+	    b0.setFont(new Font("Arial", Font.BOLD, 20));
+	    b0.setBackground(new Color(50,50,50));
+	    b0.setForeground(Color.WHITE);
+	    b0.setFocusPainted(false);
+	    b0.setBorderPainted(false);
+	    buttonPanel.add(b0);
+
+	    // Fila 5
+	    JButton punto = new JButton(".");
+	    punto.setFont(new Font("Arial", Font.BOLD, 20));
+	    punto.setBackground(new Color(50,50,50));
+	    punto.setForeground(Color.WHITE);
+	    punto.setFocusPainted(false);
+	    punto.setBorderPainted(false);
+	    buttonPanel.add(punto);
+
+	    buttonPanel.add(new JLabel());
+	    buttonPanel.add(new JLabel());
+	    buttonPanel.add(new JLabel());
+
+	    this.add(buttonPanel, BorderLayout.CENTER);
+
+	    this.revalidate();
+	    this.repaint();
 	}
 
 	public static void main(String[] args) 
