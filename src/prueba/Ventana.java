@@ -32,8 +32,8 @@ public class Ventana extends JFrame
 {
 	public Ventana() 
 	{
-		this.setSize(360, 480);
-		//this.setSize(1200, 650);
+		//this.setSize(360, 480);
+		this.setSize(1200, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setLayout(null);
@@ -68,11 +68,12 @@ public class Ventana extends JFrame
 		this.setJMenuBar(barra);
 		*/
 		
-		calculadoraLayout();
+		//calculadoraLayout();
 		//login();
 		//registro();
 		//usuarios();
 		//calculadora();
+		interes();
 		
 		this.setVisible(true);
 	}
@@ -632,6 +633,66 @@ public class Ventana extends JFrame
 
 	    this.revalidate();
 	    this.repaint();
+	}
+	
+	public void interes()
+	{
+		this.setTitle("Interes");
+	    this.setSize(400,500);
+	    this.setLayout(new BorderLayout(2,20));
+	    this.getContentPane().setBackground(Color.WHITE);
+
+	    // Panel titulo
+	    JPanel titulo = new JPanel();
+	    titulo.setBackground(Color.WHITE);
+	    
+	    JLabel texto = new JLabel("Calcular interés");
+	    texto.setFont(new Font("Serif", Font.BOLD, 22));
+	    texto.setForeground(Color.RED);
+	    
+	    titulo.add(texto);
+	    this.add(titulo, BorderLayout.NORTH);
+	    
+	    JPanel formulario = new JPanel();
+	    formulario.setBackground(new Color(144,238,144));
+	    formulario.setLayout(new GridLayout(5,2,10,10));
+	    
+	    formulario.add(new JLabel("Capital:"));
+	    JTextField capital = new JTextField();
+	    formulario.add(capital);
+	    
+	    formulario.add(new JLabel("Tiempo:"));
+	    JTextField tiempo = new JTextField();
+	    formulario.add(tiempo);
+	    
+	    formulario.add(new JLabel("Tasas interés:"));
+	    JTextField tasa = new JTextField();
+	    formulario.add(tasa);
+	    
+	    JButton calcular = new JButton("Calcular");
+	    formulario.add(calcular);
+	    
+	    JButton cancelar = new JButton("Cancelar");
+	    formulario.add(cancelar);
+	    
+	    this.add(formulario, BorderLayout.CENTER);
+	    
+	    JPanel resultado = new JPanel();
+	    
+	    resultado.setBackground(new Color(240,128,128));
+	    resultado.setLayout(new GridLayout(2,2,10,10));
+
+	    resultado.add(new JLabel("Interés:"));
+	    JTextField interes = new JTextField();
+	    resultado.add(interes);
+	    
+	    resultado.add(new JLabel("Monto:"));
+	    JTextField monto = new JTextField();
+	    resultado.add(monto);
+	    
+	    this.add(resultado, BorderLayout.SOUTH);
+	    
+	    
 	}
 
 	public static void main(String[] args) 
