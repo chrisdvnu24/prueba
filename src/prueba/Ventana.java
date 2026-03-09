@@ -73,7 +73,8 @@ public class Ventana extends JFrame
 		//registro();
 		//usuarios();
 		//calculadora();
-		interes();
+		//interes();
+		pruebaIcono();
 		
 		this.setVisible(true);
 	}
@@ -693,6 +694,26 @@ public class Ventana extends JFrame
 	    this.add(resultado, BorderLayout.SOUTH);
 	    
 	    
+	}
+	
+	public void pruebaIcono()
+	{
+	    this.setTitle("Ajolote");
+
+		// icono ventana
+	
+	    ImageIcon icono = new ImageIcon(getClass().getResource("img/axolotl.png"));
+	    Image img = icono.getImage();
+	    this.setIconImage(img);
+
+	    ImageIcon logo = new ImageIcon(getClass().getResource("img/axolotl.png"));
+	    Image escalado = logo.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+	    logo = new ImageIcon(escalado);
+
+	    JLabel imagen = new JLabel(logo);
+	    imagen.setBounds(10, 10, 200, 200);
+
+	    this.add(imagen);
 	}
 
 	public static void main(String[] args) 
