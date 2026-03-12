@@ -1,9 +1,12 @@
 package prueba;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -33,7 +36,7 @@ public class Ventana extends JFrame
 	public Ventana() 
 	{
 		//this.setSize(360, 480);
-		this.setSize(1200, 650);
+		this.setSize(1000, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setLayout(null);
@@ -74,7 +77,8 @@ public class Ventana extends JFrame
 		//usuarios();
 		//calculadora();
 		//interes();
-		pruebaIcono();
+		//pruebaIcono();
+		pintar();
 		
 		this.setVisible(true);
 	}
@@ -714,6 +718,58 @@ public class Ventana extends JFrame
 	    imagen.setBounds(10, 10, 200, 200);
 
 	    this.add(imagen);
+	}
+	
+	public void pintar()
+	{
+		JPanel pane = new JPanel() 
+		{
+            @Override
+            protected void paintComponent(Graphics g) 
+            {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                
+                g2d.setStroke(new BasicStroke(2));
+                g2d.setColor(Color.BLUE);
+                g2d.drawLine(0, 0, 100, 100);
+                
+                g2d.setStroke(new BasicStroke(2));
+                g2d.setColor(Color.RED);
+                g2d.drawLine(200, 200, 500, 200);
+                
+                g2d.setColor(Color.GREEN);
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawRect(250, 250, 100, 100);
+                
+                g2d.setColor(Color.CYAN);
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawOval(400, 100, 90, 30);
+                
+                g2d.setColor(Color.MAGENTA);
+                g2d.setStroke(new BasicStroke(4));
+                g2d.drawArc(300, 100, 100, 100, 0, 180);
+               
+                g2d.setColor(Color.YELLOW);
+                g2d.drawPolygon(new int [] {200, 100, 300}, new int [] {100, 300, 500}, 3);
+                
+                g2d.setColor(Color.ORANGE);
+                g2d.fillRect(500, 300, 100, 100);
+                
+                g2d.setColor(Color.BLUE);
+                g2d.fillOval(400,  200,  100,  100);
+                
+                g2d.fillArc(300,  300,  100,  100, 0,  300);
+                
+                g2d.setColor(Color.LIGHT_GRAY);
+                g2d.fillPolygon(new int [] {600, 300, 500}, new int [] {400, 300, 500}, 3);
+                
+            }
+        };
+        
+        pane.setSize(1000, 700);
+        pane.setLocation(0 ,0);
+        this.add(pane);
 	}
 
 	public static void main(String[] args) 
