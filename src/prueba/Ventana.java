@@ -78,7 +78,8 @@ public class Ventana extends JFrame
 		//calculadora();
 		//interes();
 		//pruebaIcono();
-		pintar();
+		//pintar();
+		casa();
 		
 		this.setVisible(true);
 	}
@@ -771,6 +772,126 @@ public class Ventana extends JFrame
         pane.setLocation(0 ,0);
         this.add(pane);
 	}
+	
+	public void casa()
+	{
+		JPanel pane = new JPanel() 
+		{
+            @Override
+            protected void paintComponent(Graphics g) 
+            {
+            	super.paintComponent(g);
+
+                Graphics2D g2d = (Graphics2D) g;
+
+                // cielo
+                g2d.setColor(Color.decode("#0A1744"));
+                g2d.fillRect(0,0,1000,300);
+                
+                // estrellas
+                g2d.setColor(Color.WHITE);
+                
+                g2d.fillOval(50,40,3,4);
+                g2d.fillOval(120,70,2,2);
+                g2d.fillOval(200,50,4,4);
+                g2d.fillOval(300,90,2,2);
+                g2d.fillOval(420,30,3,3);
+                g2d.fillOval(500,80,2,2);
+                g2d.fillOval(600,60,3,3);
+                g2d.fillOval(720,40,2,2);
+                g2d.fillOval(800,70,3,3);
+                g2d.fillOval(900,50,2,2);
+                g2d.fillOval(150,110,4,4);
+                g2d.fillOval(350,120,2,2);
+                g2d.fillOval(650,100,4,4);
+                g2d.fillOval(850,120,4,2);
+
+                // luna
+                g2d.setColor(new Color(230,230,200));
+                g2d.fillOval(800,50,80,80);
+                
+                g2d.setStroke(new BasicStroke(4));
+                g2d.setColor(new Color(255,255,230));
+                g2d.drawOval(800,50,80,80);
+                
+                g2d.setStroke(new BasicStroke(1));
+                
+                // luna - crateres
+                g2d.setColor(new Color(200,200,180));
+                g2d.fillOval(820,70,10,10);
+                g2d.fillOval(850,80,8,8);
+                g2d.fillOval(830,95,6,6);
+                
+                // pasto
+                g2d.setColor(Color.decode("#1E5F1B"));
+                g2d.fillRect(0,300,1000,400);
+
+                // casa
+                g2d.setColor(Color.decode("#E8E8E8"));
+                g2d.fillRect(350,220,200,150);
+
+                // techo
+                g2d.setColor(Color.decode("#A52A2A"));
+                g2d.fillPolygon(new int[]{330,470,570}, new int[]{220,120,220}, 3);
+
+                // puerta
+                g2d.setColor(Color.decode("#5C3A21"));
+                g2d.fillRect(430,270,50,100);
+
+                // perilla
+                g2d.setColor(Color.decode("#919190"));
+                g2d.fillOval(470,320,8,8);
+
+                // ventana
+                g2d.setColor(Color.decode("#FFF2A8"));
+                g2d.fillRect(500,250,50,40);
+
+                // cruz ventana
+                g2d.setColor(Color.LIGHT_GRAY);
+                g2d.drawLine(525,250,525,290);
+                g2d.drawLine(500,270,550,270);
+
+                // chimenea
+                g2d.setColor(Color.decode("#6E6E6E"));
+                g2d.fillRect(480,160,30,40);
+                
+                // humo
+                g2d.setColor(new Color(220,220,220));
+
+                g2d.fillOval(495,130,18,18);
+                g2d.fillOval(505,110,22,22);
+                g2d.fillOval(495,90,26,26);
+                g2d.fillOval(510,65,30,30);
+
+                // cerca 
+                
+                g2d.setColor(Color.decode("#C49D5C"));
+                g2d.fillRect(600,300,20,50);
+                g2d.fillPolygon(new int[]{600,610,620}, new int[]{300,270,300},3);
+
+                g2d.fillRect(640,300,20,50);
+                g2d.fillPolygon(new int[]{640,650,660}, new int[]{300,270,300},3);
+
+                g2d.fillRect(680,300,20,50);
+                g2d.fillPolygon(new int[]{680,690,700}, new int[]{300,270,300},3);
+
+                g2d.fillRect(720,300,20,50);
+                g2d.fillPolygon(new int[]{720,730,740}, new int[]{300,270,300},3);
+
+                g2d.fillRect(760,300,20,50);
+                g2d.fillPolygon(new int[]{760,770,780}, new int[]{300,270,300},3);
+
+                g2d.fillRect(800,300,20,50);
+                g2d.fillPolygon(new int[]{800,810,820}, new int[]{300,270,300},3);
+                
+            }
+        };
+        
+        pane.setSize(1000, 700);
+        pane.setLocation(0 ,0);
+        this.add(pane);
+	}
+
 
 	public static void main(String[] args) 
 	{
