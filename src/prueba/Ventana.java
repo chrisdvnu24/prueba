@@ -9,6 +9,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -72,14 +74,14 @@ public class Ventana extends JFrame
 		*/
 		
 		//calculadoraLayout();
-		//login();
+		login();
 		//registro();
 		//usuarios();
 		//calculadora();
 		//interes();
 		//pruebaIcono();
 		//pintar();
-		casa();
+		//casa();
 		
 		this.setVisible(true);
 	}
@@ -177,14 +179,39 @@ public class Ventana extends JFrame
 	    loginBtn.setBorder(new LineBorder(Color.WHITE, 2, true));
 	    panel.add(loginBtn);
 
-	    loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-	        public void mouseEntered(java.awt.event.MouseEvent evt) {
+	    loginBtn.addMouseListener(new java.awt.event.MouseAdapter()
+	    {
+	        public void mouseEntered(java.awt.event.MouseEvent evt)
+	        {
 	            loginBtn.setBackground(new Color(249, 176, 113));
 	        }
 
-	        public void mouseExited(java.awt.event.MouseEvent evt) {
+	        public void mouseExited(java.awt.event.MouseEvent evt)
+	        {
 	            loginBtn.setBackground(new Color(255, 155, 68));
 	        }
+	    });
+	    
+	    
+	    loginBtn.addActionListener(new ActionListener() 
+	    {
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					String username_val = usuario.getText();
+					
+					if (username_val.equals(""))
+					{
+					    userPanel.setBorder(new LineBorder(Color.RED, 1, true));
+					    passPanel.setBorder(new LineBorder(Color.RED, 1, true));
+					}
+					
+					else
+					{
+					    userPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+					    passPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+					}
+				}
 	    });
 
 	    this.repaint();
@@ -284,6 +311,27 @@ public class Ventana extends JFrame
 		crearCuenta.setFont(new Font("Arial", Font.BOLD, 20));
 		crearCuenta.setBackground(Color.WHITE);
 		register_container.add(crearCuenta);
+		
+		crearCuenta.addActionListener(new ActionListener() 
+		    {
+					@Override
+					public void actionPerformed(ActionEvent e) 
+					{
+						String username_val = usuario_registro.getText();
+						
+						if (username_val.equals(""))
+						{
+						    usuario_registro.setBorder(new LineBorder(Color.RED, 1, true));
+						}
+						else
+						{
+						    usuario_registro.setBorder(new LineBorder(Color.GREEN, 1, true));
+
+						}
+						
+						
+					}
+		    });
 	}
 
 	public void usuarios()
