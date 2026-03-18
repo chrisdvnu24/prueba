@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -191,27 +192,62 @@ public class Ventana extends JFrame
 	            loginBtn.setBackground(new Color(255, 155, 68));
 	        }
 	    });
-	    
-	    
-	    loginBtn.addActionListener(new ActionListener() 
+
+	    loginBtn.addActionListener(new ActionListener()
 	    {
-				@Override
-				public void actionPerformed(ActionEvent e) 
-				{
-					String username_val = usuario.getText();
-					
-					if (username_val.equals(""))
-					{
-					    userPanel.setBorder(new LineBorder(Color.RED, 1, true));
-					    passPanel.setBorder(new LineBorder(Color.RED, 1, true));
-					}
-					
-					else
-					{
-					    userPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
-					    passPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
-					}
-				}
+	        @Override
+	        public void actionPerformed(ActionEvent e)
+	        {
+	            String username_val = usuario.getText();
+	            String password_val = new String(pass.getPassword());
+
+	            // datos duros
+	            String correctUsername = "admin@gmail.com";
+	            String correctPassword = "1234";
+
+	            // validación
+	            boolean emptyField = false;
+
+	            if(username_val.equals(""))
+	            {
+	                userPanel.setBorder(new LineBorder(Color.RED, 1, true));
+	                emptyField = true;
+	            }
+	            else
+	            {
+	                userPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+	            }
+
+	            if(password_val.equals(""))
+	            {
+	                passPanel.setBorder(new LineBorder(Color.RED, 1, true));
+	                emptyField = true;
+	            }
+	            else
+	            {
+	                passPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+	            }
+
+	            if(emptyField)
+	            {
+	                JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos correctamente", "Advertencia", JOptionPane.WARNING_MESSAGE);
+	                return;
+	            }
+
+	            // validar datos
+	            if(username_val.equals(correctUsername) && password_val.equals(correctPassword))
+	            {
+	                JOptionPane.showMessageDialog(null, "¡Bienvenido " + username_val + "!", "Login", JOptionPane.INFORMATION_MESSAGE);
+	                userPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+	                passPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+	            }
+	            else
+	            {
+	                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+	                userPanel.setBorder(new LineBorder(Color.RED, 1, true));
+	                passPanel.setBorder(new LineBorder(Color.RED, 1, true));
+	            }
+	        }
 	    });
 
 	    this.repaint();
