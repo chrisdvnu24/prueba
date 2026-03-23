@@ -45,34 +45,22 @@ public class Ventana extends JFrame
 		this.setLayout(null);
 		//this.setResizable(false);
 		
-		/*
-		JMenuBar barra = new JMenuBar();
-		JMenu archivo = new JMenu("Archivo");
-		
-		JMenuItem open = new JMenuItem("Abrir");
-		JMenuItem close = new JMenuItem("Cerrar");
-		JMenuItem save = new JMenuItem("Guardar");
-		JMenuItem newFile = new JMenuItem("Nuevo");
-		
-		archivo.add(open);
-		archivo.add(close);
-		archivo.add(save);
-		archivo.add(newFile);
-		
-		barra.add(archivo);
-		archivo.addSeparator();
-
-		JMenu submenu = new JMenu("Otros");
-		archivo.add(submenu);
-		
-		JMenuItem menuItem = new JMenuItem("Hola mundo");
-		submenu.add(menuItem);
-		
-		menuItem = new JMenuItem("A");
-		submenu.add(menuItem);
-		
-		this.setJMenuBar(barra);
-		*/
+		// barra menu
+	    JMenuBar barra = new JMenuBar();
+	    JMenu navegacion = new JMenu("Navegación");
+	    
+	    JMenuItem itemLogin = new JMenuItem("Ir a Login");
+	    JMenuItem itemRegistro = new JMenuItem("Ir a Registro");
+	    
+	    // eventos menu
+	    itemLogin.addActionListener(e -> login());
+	    itemRegistro.addActionListener(e -> registro());
+	    
+	    navegacion.add(itemLogin);
+	    navegacion.add(itemRegistro);
+	    barra.add(navegacion);
+	    
+	    this.setJMenuBar(barra);
 		
 		//calculadoraLayout();
 		login();
@@ -87,289 +75,280 @@ public class Ventana extends JFrame
 		this.setVisible(true);
 	}
 
-	public void login() 
-	{
-	    this.setTitle("Login");
-	    this.getContentPane().removeAll();
-	    this.setLayout(null);
+	
+	public void router(String target)
+    {
+        this.getContentPane().removeAll();
 
-	    // fondo
-	    JLabel fondo = new JLabel();
-	    fondo.setBounds(0, 0, 1000, 650);
-	    fondo.setIcon(new ImageIcon(getClass().getResource("fondo.jpg")));
-	    fondo.setLayout(null);
-	    this.add(fondo);
+        if (target.equals("login"))
+        {
+            this.login();
+        }
+        else if (target.equals("registro"))
+        {
+            this.registro();
+        }
 
-	    // panel
-	    JPanel panel = new JPanel();
-	    panel.setBounds(300, 120, 400, 400);
-	    panel.setBackground(new Color(0, 0, 0, 180));
-	    panel.setLayout(null);
-	    fondo.add(panel);
+        this.revalidate();
+        this.repaint();
+    }
 
-	    // titulo
-	    JLabel titulo = new JLabel("Login");
-	    titulo.setBounds(100, 40, 200, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 28));
-	    titulo.setForeground(Color.WHITE);
-	    titulo.setHorizontalAlignment(SwingConstants.CENTER);
-	    panel.add(titulo);
+    public void login()
+    {
+        this.setTitle("Login");
+        this.getContentPane().removeAll();
+        this.setLayout(null);
 
-	    // icons
-	    ImageIcon userIcon = new ImageIcon(getClass().getResource("user.png"));
-	    ImageIcon passIcon = new ImageIcon(getClass().getResource("lock.png"));
+        // background img
+        JLabel fondo = new JLabel();
+        fondo.setBounds(0, 0, 1000, 650);
+        try
+        {
+            fondo.setIcon(new ImageIcon(getClass().getResource("fondo.jpg")));
+        }
+        catch (Exception e)
+        {
+            System.out.println("No se encontró fondo.jpg");
+        }
+        fondo.setLayout(null);
+        this.add(fondo);
 
-	    // tamaño icons
-	    Image imgUser = userIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-	    userIcon = new ImageIcon(imgUser);
+        // Panel transparente del centro
+        JPanel panel = new JPanel();
+        panel.setBounds(300, 120, 400, 400);
+        panel.setBackground(new Color(0, 0, 0, 180));
+        panel.setLayout(null);
+        fondo.add(panel);
 
-	    Image imgPass = passIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-	    passIcon = new ImageIcon(imgPass);
+        JLabel titulo = new JLabel("Login");
+        titulo.setBounds(100, 40, 200, 40);
+        titulo.setFont(new Font("Arial", Font.BOLD, 28));
+        titulo.setForeground(Color.WHITE);
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(titulo);
 
-	    JLabel iconUser = new JLabel(userIcon);
-	    JLabel iconPass = new JLabel(passIcon);
+        // cargar iconos de usuario y candado
+        JLabel iconUser = new JLabel();
+        JLabel iconPass = new JLabel();
+        try
+        {
+            ImageIcon userIcon = new ImageIcon(getClass().getResource("user.png"));
+            Image imgUser = userIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            iconUser.setIcon(new ImageIcon(imgUser));
 
-	    // user
-	    JLabel labelUsuario = new JLabel("Usuario");
-	    labelUsuario.setBounds(80, 95, 260, 20);
-	    labelUsuario.setForeground(Color.WHITE);
-	    labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));
-	    panel.add(labelUsuario);
+            ImageIcon passIcon = new ImageIcon(getClass().getResource("lock.png"));
+            Image imgPass = passIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            iconPass.setIcon(new ImageIcon(imgPass));
+        }
+        catch (Exception e)
+        {
+            // en caso de que los iconos fallen, no hacer nada
+        }
 
-	    JTextField usuario = new JTextField();
-	    usuario.setFont(new Font("Arial", Font.PLAIN, 16));
-	    usuario.setBorder(null);
+        // campo usuario
+        JLabel labelUsuario = new JLabel("Usuario");
+        labelUsuario.setBounds(80, 95, 260, 20);
+        labelUsuario.setForeground(Color.WHITE);
+        labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));
+        panel.add(labelUsuario);
 
-	    JPanel userPanel = new JPanel(new BorderLayout());
-	    userPanel.setBounds(80, 120, 260, 35);
-	    userPanel.setBackground(Color.WHITE);
-	    userPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+        JTextField usuario = new JTextField();
+        usuario.setBorder(null);
 
-	    userPanel.add(iconUser, BorderLayout.WEST);
-	    userPanel.add(usuario, BorderLayout.CENTER);
+        JPanel userPanel = new JPanel(new BorderLayout());
+        userPanel.setBounds(80, 120, 260, 35);
+        userPanel.setBackground(Color.WHITE);
+        userPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+        userPanel.add(iconUser, BorderLayout.WEST);
+        userPanel.add(usuario, BorderLayout.CENTER);
+        panel.add(userPanel);
 
-	    panel.add(userPanel);
+        // campo contraseña
+        JLabel labelPass = new JLabel("Contraseña");
+        labelPass.setBounds(80, 165, 260, 20);
+        labelPass.setForeground(Color.WHITE);
+        labelPass.setFont(new Font("Arial", Font.BOLD, 14));
+        panel.add(labelPass);
 
-	    // password
-	    JLabel labelPass = new JLabel("Contraseña");
-	    labelPass.setBounds(80, 165, 260, 20);
-	    labelPass.setForeground(Color.WHITE);
-	    labelPass.setFont(new Font("Arial", Font.BOLD, 14));
-	    panel.add(labelPass);
+        JPasswordField pass = new JPasswordField();
+        pass.setBorder(null);
 
-	    JPasswordField pass = new JPasswordField();
-	    pass.setFont(new Font("Arial", Font.PLAIN, 16));
-	    pass.setBorder(null);
+        JPanel passPanel = new JPanel(new BorderLayout());
+        passPanel.setBounds(80, 190, 260, 35);
+        passPanel.setBackground(Color.WHITE);
+        passPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+        passPanel.add(iconPass, BorderLayout.WEST);
+        passPanel.add(pass, BorderLayout.CENTER);
+        panel.add(passPanel);
 
-	    JPanel passPanel = new JPanel(new BorderLayout());
-	    passPanel.setBounds(80, 190, 260, 35);
-	    passPanel.setBackground(Color.WHITE);
-	    passPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+        // boton login con hover
+        JButton loginBtn = new JButton("Iniciar sesión");
+        loginBtn.setBounds(125, 260, 150, 45);
+        loginBtn.setBackground(new Color(255, 155, 68));
+        loginBtn.setFocusPainted(false);
+        loginBtn.setBorder(new LineBorder(Color.WHITE, 2, true));
+        panel.add(loginBtn);
 
-	    passPanel.add(iconPass, BorderLayout.WEST);
-	    passPanel.add(pass, BorderLayout.CENTER);
+        loginBtn.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseEntered(java.awt.event.MouseEvent evt)
+            {
+                loginBtn.setBackground(new Color(249, 176, 113));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt)
+            {
+                loginBtn.setBackground(new Color(255, 155, 68));
+            }
+        });
 
-	    panel.add(passPanel);
+        loginBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String user_val = usuario.getText();
+                String pass_val = new String(pass.getPassword());
 
-	    // button
-	    JButton loginBtn = new JButton("Iniciar sesión");
-	    loginBtn.setBounds(125, 260, 150, 45);
-	    loginBtn.setFocusPainted(false);
-	    loginBtn.setFont(new Font("Arial", Font.BOLD, 18));
-	    loginBtn.setBackground(new Color(255, 155, 68));
-	    loginBtn.setBorder(new LineBorder(Color.WHITE, 2, true));
-	    panel.add(loginBtn);
+                // datos prueba login
+                String correctUser = "admin@gmail.com";
+                String correctPass = "1234";
 
-	    loginBtn.addMouseListener(new java.awt.event.MouseAdapter()
-	    {
-	        public void mouseEntered(java.awt.event.MouseEvent evt)
-	        {
-	            loginBtn.setBackground(new Color(249, 176, 113));
-	        }
+                boolean error = false;
 
-	        public void mouseExited(java.awt.event.MouseEvent evt)
-	        {
-	            loginBtn.setBackground(new Color(255, 155, 68));
-	        }
-	    });
+                // validar credenciales (para que no sean vacias)
+                if (user_val.equals(""))
+                {
+                    userPanel.setBorder(new LineBorder(Color.RED, 1, true));
+                    error = true;
+                }
+                else
+                {
+                    userPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+                }
 
-	    loginBtn.addActionListener(new ActionListener()
-	    {
-	        @Override
-	        public void actionPerformed(ActionEvent e)
-	        {
-	            String username_val = usuario.getText();
-	            String password_val = new String(pass.getPassword());
+                if (pass_val.equals(""))
+                {
+                    passPanel.setBorder(new LineBorder(Color.RED, 1, true));
+                    error = true;
+                }
+                else
+                {
+                    passPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+                }
 
-	            // datos duros
-	            String correctUsername = "admin@gmail.com";
-	            String correctPassword = "1234";
+                if (error)
+                {
+                    JOptionPane.showMessageDialog(null, "Rellena los campos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
 
-	            // validación
-	            boolean emptyField = false;
+                // validar credenciales
+                if (user_val.equals(correctUser) && pass_val.equals(correctPass))
+                {
+                    JOptionPane.showMessageDialog(null, "¡Bienvenido!");
+                    userPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+                    passPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                    userPanel.setBorder(new LineBorder(Color.RED, 1, true));
+                    passPanel.setBorder(new LineBorder(Color.RED, 1, true));
+                }
+            }
+        });
 
-	            if(username_val.equals(""))
-	            {
-	                userPanel.setBorder(new LineBorder(Color.RED, 1, true));
-	                emptyField = true;
-	            }
-	            else
-	            {
-	                userPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
-	            }
+        // boton saltar al registro
+        JButton registro1 = new JButton("¿Aún no tienes cuenta?");
+        registro1.setBounds(100, 320, 200, 30);
+        registro1.setFont(new Font("Arial", Font.BOLD, 14));
+        panel.add(registro1);
 
-	            if(password_val.equals(""))
-	            {
-	                passPanel.setBorder(new LineBorder(Color.RED, 1, true));
-	                emptyField = true;
-	            }
-	            else
-	            {
-	                passPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
-	            }
+        registro1.addActionListener(e -> router("registro"));
 
-	            if(emptyField)
-	            {
-	                JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos correctamente", "Advertencia", JOptionPane.WARNING_MESSAGE);
-	                return;
-	            }
+        this.revalidate();
+        this.repaint();
+    }
 
-	            // validar datos
-	            if(username_val.equals(correctUsername) && password_val.equals(correctPassword))
-	            {
-	                JOptionPane.showMessageDialog(null, "¡Bienvenido " + username_val + "!", "Login", JOptionPane.INFORMATION_MESSAGE);
-	                userPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
-	                passPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
-	            }
-	            else
-	            {
-	                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-	                userPanel.setBorder(new LineBorder(Color.RED, 1, true));
-	                passPanel.setBorder(new LineBorder(Color.RED, 1, true));
-	            }
-	        }
-	    });
+    public void registro()
+    {
+        this.setTitle("Registro");
+        this.getContentPane().removeAll();
+        this.setLayout(null);
+        this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    this.repaint();
-	}
-	public void registro() 
-	{
-		JPanel register_container = new JPanel();
-		register_container.setSize(500, 650);
-		register_container.setLocation(500, 0);
-		register_container.setLayout(null);
-		register_container.setBackground(new Color(28, 28, 28));
-		this.add(register_container);
+        // Cuadro de registro
+        JPanel regPanel = new JPanel();
+        regPanel.setBounds(250, 50, 500, 500);
+        regPanel.setLayout(null);
+        regPanel.setBackground(new Color(45, 45, 45));
+        this.add(regPanel);
 
-		JLabel bio_tag = new JLabel("REGISTRO");
-		bio_tag.setBounds(100, 30, 300, 70);
-		bio_tag.setFont(new Font("Arial", Font.BOLD, 40));
-		bio_tag.setBackground(Color.WHITE);
-		bio_tag.setOpaque(true);
-		bio_tag.setHorizontalAlignment(SwingConstants.CENTER);
-		register_container.add(bio_tag);
+        JLabel tituloReg = new JLabel("NUEVA CUENTA");
+        tituloReg.setBounds(100, 30, 300, 50);
+        tituloReg.setFont(new Font("Arial", Font.BOLD, 30));
+        tituloReg.setForeground(Color.WHITE);
+        tituloReg.setHorizontalAlignment(SwingConstants.CENTER);
+        regPanel.add(tituloReg);
 
-		JLabel nombre_usuario = new JLabel("NOMBRE DE USUARIO:");
-		nombre_usuario.setBounds(60, 120, 300, 30);
-		nombre_usuario.setForeground(Color.WHITE);
-		nombre_usuario.setFont(new Font("Arial", Font.BOLD, 16));
-		register_container.add(nombre_usuario);
+        // campo nombre
+        JLabel lblUser = new JLabel("NOMBRE DE USUARIO:");
+        lblUser.setBounds(60, 110, 300, 30);
+        lblUser.setForeground(Color.WHITE);
+        regPanel.add(lblUser);
 
-		JTextField usuario_registro = new JTextField();
-		usuario_registro.setBounds(60, 155, 380, 35);
-		usuario_registro.setFont(new Font("Arial", Font.PLAIN, 16));
-		register_container.add(usuario_registro);
+        JTextField usuario_registro = new JTextField();
+        usuario_registro.setBounds(60, 140, 380, 35);
+        regPanel.add(usuario_registro);
 
-		JLabel bio_label = new JLabel("BIO");
-		bio_label.setBounds(60, 205, 200, 30);
-		bio_label.setForeground(Color.WHITE);
-		bio_label.setFont(new Font("Arial", Font.BOLD, 16));
-		register_container.add(bio_label);
+        // campo contraseña
+        JLabel lblPass = new JLabel("CONTRASEÑA:");
+        lblPass.setBounds(60, 190, 300, 30);
+        lblPass.setForeground(Color.WHITE);
+        regPanel.add(lblPass);
 
-		JTextArea bio = new JTextArea();
-		bio.setBounds(60, 240, 380, 80);
-		bio.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-		register_container.add(bio);
+        JPasswordField pass_registro = new JPasswordField();
+        pass_registro.setBounds(60, 220, 380, 35);
+        regPanel.add(pass_registro);
 
-		JLabel preferencias = new JLabel("PREFERENCIAS");
-		preferencias.setBounds(60, 330, 200, 30);
-		preferencias.setForeground(Color.WHITE);
-		preferencias.setFont(new Font("Arial", Font.BOLD, 16));
-		register_container.add(preferencias);
+        // boton crear cuenta
+        JButton crearBtn = new JButton("Crear cuenta");
+        crearBtn.setBounds(125, 300, 250, 45);
+        regPanel.add(crearBtn);
 
-		JCheckBox sweet_option = new JCheckBox("Dulce");
-		sweet_option.setBounds(60, 360, 100, 30);
-		sweet_option.setOpaque(false);
-		sweet_option.setForeground(Color.WHITE);
-		register_container.add(sweet_option);
+        crearBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String user = usuario_registro.getText();
+                String pass = new String(pass_registro.getPassword());
 
-		JCheckBox salty_option = new JCheckBox("Salado");
-		salty_option.setBounds(170, 360, 100, 30);
-		salty_option.setOpaque(false);
-		salty_option.setForeground(Color.WHITE);
-		register_container.add(salty_option);
+                if (user.equals("") || pass.equals(""))
+                {
+                    usuario_registro.setBorder(new LineBorder(Color.RED, 1, true));
+                    pass_registro.setBorder(new LineBorder(Color.RED, 1, true));
+                    JOptionPane.showMessageDialog(null, "Por favor, rellena todos los campos solicitados.");
+                }
+                else
+                {
+                    usuario_registro.setBorder(new LineBorder(Color.GREEN, 1, true));
+                    pass_registro.setBorder(new LineBorder(Color.GREEN, 1, true));
+                    // mensaje de exito
+                    JOptionPane.showMessageDialog(null, "¡Cuenta creada exitosamente!");
+                }
+            }
+        });
 
-		JCheckBox healthy_option = new JCheckBox("Saludable");
-		healthy_option.setBounds(280, 360, 120, 30);
-		healthy_option.setOpaque(false);
-		healthy_option.setForeground(Color.WHITE);
-		register_container.add(healthy_option);
+        // boton regresar
+        JButton volver = new JButton("Volver al Login");
+        volver.setBounds(150, 430, 200, 30);
+        regPanel.add(volver);
+        volver.addActionListener(e -> router("login"));
 
-		JLabel terminos = new JLabel("TÉRMINOS");
-		terminos.setBounds(60, 400, 200, 30);
-		terminos.setForeground(Color.WHITE);
-		terminos.setFont(new Font("Arial", Font.BOLD, 16));
-		register_container.add(terminos);
-
-		JRadioButton accept_terms = new JRadioButton("Acepto los términos");
-		accept_terms.setBounds(60, 430, 180, 30);
-		accept_terms.setForeground(Color.WHITE);
-		accept_terms.setOpaque(false);
-		register_container.add(accept_terms);
-
-		JRadioButton reject_terms = new JRadioButton("No acepto los términos");
-		reject_terms.setBounds(250, 430, 200, 30);
-		reject_terms.setForeground(Color.WHITE);
-		reject_terms.setOpaque(false);
-		register_container.add(reject_terms);
-
-		ButtonGroup terms = new ButtonGroup();
-		terms.add(reject_terms);
-		terms.add(accept_terms);
-
-		String[] colonias = {"Camino real", "La fuente", "Agua escondida"};
-		JComboBox list = new JComboBox<>(colonias);
-		list.setBounds(60, 470, 250, 35);
-		register_container.add(list);
-
-		JButton crearCuenta = new JButton("Crear cuenta");
-		crearCuenta.setBounds(120, 520, 250, 45);
-		crearCuenta.setFont(new Font("Arial", Font.BOLD, 20));
-		crearCuenta.setBackground(Color.WHITE);
-		register_container.add(crearCuenta);
-		
-		crearCuenta.addActionListener(new ActionListener() 
-		    {
-					@Override
-					public void actionPerformed(ActionEvent e) 
-					{
-						String username_val = usuario_registro.getText();
-						
-						if (username_val.equals(""))
-						{
-						    usuario_registro.setBorder(new LineBorder(Color.RED, 1, true));
-						}
-						else
-						{
-						    usuario_registro.setBorder(new LineBorder(Color.GREEN, 1, true));
-
-						}
-						
-						
-					}
-		    });
-	}
-
+        this.revalidate();
+        this.repaint();
+    }
 	public void usuarios()
 	{
 		JPanel users = new JPanel();
