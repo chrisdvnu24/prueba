@@ -63,7 +63,7 @@ public class Ventana extends JFrame
 	    this.setJMenuBar(barra);
 		
 		//calculadoraLayout();
-		login();
+		//login();
 		//registro();
 		//usuarios();
 		//calculadora();
@@ -71,6 +71,7 @@ public class Ventana extends JFrame
 		//pruebaIcono();
 		//pintar();
 		//casa();
+		mario();
 		
 		this.setVisible(true);
 	}
@@ -954,7 +955,118 @@ public class Ventana extends JFrame
         pane.setLocation(0 ,0);
         this.add(pane);
 	}
+	
+	public void mario()
+	{
+	    JPanel pane = new JPanel() 
+	    {
+	        @Override
+	        protected void paintComponent(Graphics g) 
+	        {
+	            super.paintComponent(g);
+	            Graphics2D g2d = (Graphics2D) g;
 
+	            // cielo
+	            g2d.setColor(Color.decode("#92E8FF"));
+	            g2d.fillRect(0, 0, 1000, 700);
+
+	            // suelo
+	            g2d.setColor(Color.decode("#945D31"));
+	            g2d.fillRect(0, 480, 1000, 220); 
+
+	            // contorno suelo
+	            g2d.setColor(Color.decode("#FFAA6D"));
+	            g2d.fillRect(0, 450, 1000, 30); 
+
+	            // arbuste
+	            g2d.setColor(Color.decode("#008A00"));
+	            g2d.fillOval(40, 410, 50, 50);
+	            g2d.fillOval(70, 380, 60, 80);
+	            g2d.fillOval(110, 410, 50, 50);
+
+	            // sombra negra
+	            g2d.setColor(Color.BLACK);
+	            g2d.fillRect(450, 240, 30, 210); 
+	            g2d.fillRect(340, 420, 140, 20); 
+
+	            // bloque azul
+	            g2d.setColor(Color.decode("#84BAFF"));
+	            g2d.fillRect(320, 230, 130, 220);
+	            g2d.setColor(Color.BLACK);
+	            g2d.drawRect(320, 230, 130, 220);
+	            
+	            // tornillos bloque azul
+	            g2d.setColor(Color.LIGHT_GRAY);
+	            g2d.fillRect(330, 240, 12, 12);
+	            g2d.fillRect(428, 240, 12, 12);
+	            g2d.fillRect(330, 428, 12, 12);
+	            g2d.fillRect(428, 428, 12, 12);
+
+	            // bloque rosa
+	            g2d.setColor(Color.decode("#FFB2AD"));
+	            g2d.fillRect(230, 330, 150, 120);
+	            g2d.setColor(Color.BLACK);
+	            g2d.drawRect(230, 330, 150, 120);
+	            
+	            // tornillos bloque rosa
+	            g2d.setColor(Color.LIGHT_GRAY);
+	            g2d.fillRect(240, 340, 12, 12);
+	            g2d.fillRect(358, 340, 12, 12);
+	            g2d.fillRect(240, 428, 12, 12);
+	            g2d.fillRect(358, 428, 12, 12);
+
+	            // tubo verde
+	            g2d.setColor(Color.decode("#008000"));
+	            g2d.fillRect(555, 380, 70, 70);
+	            g2d.setColor(Color.BLACK);
+	            g2d.drawRect(555, 380, 70, 70);
+	            
+	            g2d.setColor(Color.decode("#00A000"));
+	            g2d.fillRect(545, 355, 90, 25);
+	            g2d.setColor(Color.BLACK);
+	            g2d.drawRect(545, 355, 90, 25);
+
+	            // caja verde
+	            g2d.setColor(Color.decode("#00D050"));
+	            g2d.fillRect(850, 330, 130, 120);
+	            g2d.setColor(Color.BLACK);
+	            g2d.drawRect(850, 330, 130, 120);
+	            
+	            // tornillos caja verde
+	            g2d.setColor(Color.LIGHT_GRAY);
+	            g2d.fillRect(860, 340, 10, 10); 
+	            g2d.fillRect(960, 340, 10, 10); 
+	            g2d.fillRect(860, 430, 10, 10); 
+	            g2d.fillRect(960, 430, 10, 10); 
+	            
+
+	            // ladrillos naranja
+	            dibujarLadrillo(g2d, 100, 300);
+	            dibujarLadrillo(g2d, 220, 150);
+	            dibujarLadrillo(g2d, 260, 150);
+	            dibujarLadrillo(g2d, 860, 280);
+	        }
+
+	        // metodo cuadros naranja
+	        private void dibujarLadrillo(Graphics2D g2d, int x, int y) 
+	        {
+	            g2d.setColor(Color.decode("#FF8B51"));
+	            g2d.fillRect(x, y, 40, 40);
+	            g2d.setColor(Color.BLACK);
+	            g2d.drawRect(x, y, 40, 40);
+	            
+	            // 4 tornillos de las cajas
+	            g2d.fillRect(x + 5, y + 5, 3, 3);
+	            g2d.fillRect(x + 32, y + 5, 3, 3);
+	            g2d.fillRect(x + 5, y + 32, 3, 3);
+	            g2d.fillRect(x + 32, y + 32, 3, 3);
+	        }
+	    };
+
+	    pane.setSize(1000, 700);
+	    pane.setLocation(0, 0);
+	    this.add(pane);
+	}
 
 	public static void main(String[] args) 
 	{
