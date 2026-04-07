@@ -45,25 +45,10 @@ public class Ventana extends JFrame
 		this.setLayout(null);
 		//this.setResizable(false);
 		
-		// barra menu
-	    JMenuBar barra = new JMenuBar();
-	    JMenu navegacion = new JMenu("Navegación");
-	    
-	    JMenuItem itemLogin = new JMenuItem("Ir a Login");
-	    JMenuItem itemRegistro = new JMenuItem("Ir a Registro");
-	    
-	    // eventos menu
-	    itemLogin.addActionListener(e -> login());
-	    itemRegistro.addActionListener(e -> registro());
-	    
-	    navegacion.add(itemLogin);
-	    navegacion.add(itemRegistro);
-	    barra.add(navegacion);
-	    
-	    this.setJMenuBar(barra);
+		
 		
 		//calculadoraLayout();
-		//login();
+		login();
 		//registro();
 		//usuarios();
 		//calculadora();
@@ -71,7 +56,8 @@ public class Ventana extends JFrame
 		//pruebaIcono();
 		//pintar();
 		//casa();
-		mario();
+		//mario();
+		menu();
 		
 		this.setVisible(true);
 	}
@@ -89,10 +75,105 @@ public class Ventana extends JFrame
         {
             this.registro();
         }
-
+        else if (target.equals("recuperar"))
+        {
+        		this.recuperar();
+        }
+        
+        else if (target.equals("alta"))
+        {
+        		this.alta();
+        }
+        
+        else if (target.equals("baja"))
+        {
+        		this.baja();
+        }
+        
+        else if (target.equals("consultar"))
+        {
+        		this.consultar();
+        }
+        
+       
+        else if (target.equals("ayudaUsuario"))
+        {
+        		this.ayudaUsuario();
+        }
+        
+        else if (target.equals("ayudaSistema"))
+        {
+        		this.ayudaSistema();
+        }
+        
+        else if (target.equals("ayudaContrasena"))
+        {
+        		this.ayudaContrasena();
+        }
         this.revalidate();
         this.repaint();
     }
+	
+	public void menu()
+	{
+		// barra menu
+	    JMenuBar barra = new JMenuBar();
+	    JMenu navegacion = new JMenu("Cuenta");
+	    
+	    JMenuItem itemLogin = new JMenuItem("Ir a Login");
+	    JMenuItem itemRegistro = new JMenuItem("Ir a Registro");
+	    JMenuItem itemRecuperar = new JMenuItem("Recuperar contrasena");
+	    
+	    // eventos menu
+	    itemLogin.addActionListener(e -> login());
+	    itemRegistro.addActionListener(e -> registro());
+	    itemRecuperar.addActionListener(e -> recuperar());
+	    
+	    navegacion.add(itemLogin);
+	    navegacion.add(itemRegistro);
+	    navegacion.add(itemRecuperar);
+	    
+	    barra.add(navegacion);
+	    
+	    JMenu usuarios = new JMenu("Usuarios");
+	    
+	    JMenuItem itemAlta = new JMenuItem("Dar de alta");
+	    JMenuItem itemBaja = new JMenuItem("Dar de baja");
+	    JMenuItem itemConsultar = new JMenuItem("Consultar usuario");
+	    
+	    // eventos menu
+	    itemAlta.addActionListener(e -> alta());
+	    itemBaja.addActionListener(e -> baja());
+	    itemConsultar.addActionListener(e -> consultar());
+	    
+	    usuarios.add(itemAlta);
+	    usuarios.add(itemBaja);
+	    usuarios.add(itemConsultar);
+	    
+	    barra.add(usuarios);
+	    
+	    JMenu ayuda = new JMenu("Ayuda");
+	    
+	    JMenuItem itemAyudaUsuario = new JMenuItem("Crear un usuario");
+	    JMenuItem itemAyudaSistema = new JMenuItem("Acceder al sistema");
+	    JMenuItem itemAyudaContrasena = new JMenuItem("Contrasena olvidada");
+	    
+	    // eventos menu
+	    itemAyudaUsuario.addActionListener(e -> ayudaUsuario());
+	    itemAyudaSistema.addActionListener(e -> ayudaSistema());
+	    itemAyudaContrasena.addActionListener(e -> ayudaContrasena());
+	    
+	    ayuda.add(itemAyudaUsuario);
+	    ayuda.add(itemAyudaSistema);
+	    ayuda.add(itemAyudaContrasena);
+	    
+	    barra.add(ayuda);
+	    
+	    this.setJMenuBar(barra);
+	}
+	
+
+
 
     public void login()
     {
@@ -266,6 +347,14 @@ public class Ventana extends JFrame
         panel.add(registro1);
 
         registro1.addActionListener(e -> router("registro"));
+        
+        JButton recuperar = new JButton("Olvidaste tu contrasena?");
+        recuperar.setBounds(90, 360, 220, 30);
+        recuperar.setFont(new Font("Arial", Font.BOLD, 14));
+        panel.add(recuperar);
+
+        recuperar.addActionListener(e -> router("recuperar"));
+
 
         this.revalidate();
         this.repaint();
@@ -769,7 +858,9 @@ public class Ventana extends JFrame
 	{
 	    this.setTitle("Ajolote");
 
-		// icono ventana
+	    
+		
+
 	
 	    ImageIcon icono = new ImageIcon(getClass().getResource("img/axolotl.png"));
 	    Image img = icono.getImage();
@@ -1066,6 +1157,132 @@ public class Ventana extends JFrame
 	    pane.setSize(1000, 700);
 	    pane.setLocation(0, 0);
 	    this.add(pane);
+	}
+	
+	public void recuperar()
+	{
+		this.getContentPane().removeAll();
+        this.setLayout(null);
+	    this.setTitle("Recuperar contrasena");
+
+	    JLabel titulo = new JLabel("Recuperar");
+	    titulo.setBounds(0, 30, 300, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
+	    titulo.setForeground(Color.BLACK);
+		this.add(titulo);
+		
+
+        this.revalidate();
+        this.repaint();	
+	    
+	}
+	
+	public void alta()
+	{
+		this.getContentPane().removeAll();
+        this.setLayout(null);
+	    this.setTitle("Alta usuario");
+
+	    JLabel titulo = new JLabel("Alta usuario");
+	    titulo.setBounds(0, 30, 300, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
+	    titulo.setForeground(Color.BLACK);
+		this.add(titulo);
+		
+
+        this.revalidate();
+        this.repaint();	
+	    
+	}
+	
+	public void baja()
+	{
+		this.getContentPane().removeAll();
+        this.setLayout(null);
+	    this.setTitle("Baja usuario");
+
+	    JLabel titulo = new JLabel("Baja usuario");
+	    titulo.setBounds(0, 30, 300, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
+	    titulo.setForeground(Color.BLACK);
+		this.add(titulo);
+		
+
+        this.revalidate();
+        this.repaint();	
+	    
+	}
+	
+	public void consultar()
+	{
+		this.getContentPane().removeAll();
+        this.setLayout(null);
+	    this.setTitle("Consultar usuario");
+
+	    JLabel titulo = new JLabel("Consultar usuario");
+	    titulo.setBounds(0, 30, 300, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
+	    titulo.setForeground(Color.BLACK);
+		this.add(titulo);
+		
+
+        this.revalidate();
+        this.repaint();	
+	    
+	}
+	
+	public void ayudaUsuario()
+	{
+		this.getContentPane().removeAll();
+        this.setLayout(null);
+	    this.setTitle("Ayuda usuario");
+
+	    JLabel titulo = new JLabel("Ayuda usuario");
+	    titulo.setBounds(0, 30, 300, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
+	    titulo.setForeground(Color.BLACK);
+		this.add(titulo);
+		
+
+        this.revalidate();
+        this.repaint();	
+	    
+	}
+	
+	public void ayudaSistema()
+	{
+		this.getContentPane().removeAll();
+        this.setLayout(null);
+	    this.setTitle("Ayuda sistema");
+
+	    JLabel titulo = new JLabel("Ayuda sistema");
+	    titulo.setBounds(0, 30, 300, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
+	    titulo.setForeground(Color.BLACK);
+		this.add(titulo);
+		
+
+        this.revalidate();
+        this.repaint();	
+	    
+	}
+	
+	public void ayudaContrasena()
+	{
+		this.getContentPane().removeAll();
+        this.setLayout(null);
+	    this.setTitle("ayuda contrasena");
+
+	    JLabel titulo = new JLabel("ayuda contrasena");
+	    titulo.setBounds(0, 30, 300, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
+	    titulo.setForeground(Color.BLACK);
+		this.add(titulo);
+		
+
+        this.revalidate();
+        this.repaint();	
+	    
 	}
 
 	public static void main(String[] args) 
