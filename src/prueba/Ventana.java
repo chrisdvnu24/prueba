@@ -34,6 +34,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+
+
 public class Ventana extends JFrame 
 {
 	public Ventana() 
@@ -367,78 +369,128 @@ public class Ventana extends JFrame
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(28, 28, 28));
 
-        // Cuadro de registro
+        // Cuadro principal
         JPanel regPanel = new JPanel();
         regPanel.setBounds(250, 50, 500, 500);
         regPanel.setLayout(null);
         regPanel.setBackground(new Color(45, 45, 45));
         this.add(regPanel);
 
-        JLabel tituloReg = new JLabel("NUEVA CUENTA");
+        JLabel tituloReg = new JLabel("Nueva cuenta");
         tituloReg.setBounds(100, 30, 300, 50);
         tituloReg.setFont(new Font("Arial", Font.BOLD, 30));
         tituloReg.setForeground(Color.WHITE);
         tituloReg.setHorizontalAlignment(SwingConstants.CENTER);
         regPanel.add(tituloReg);
 
-        // campo nombre
-        JLabel lblUser = new JLabel("NOMBRE DE USUARIO:");
+        // Usuario
+        JLabel lblUser = new JLabel("Usuario:");
         lblUser.setBounds(60, 110, 300, 30);
         lblUser.setForeground(Color.WHITE);
         regPanel.add(lblUser);
 
         JTextField usuario_registro = new JTextField();
-        usuario_registro.setBounds(60, 140, 380, 35);
-        regPanel.add(usuario_registro);
+        usuario_registro.setBorder(null);
 
-        // campo contraseña
-        JLabel lblPass = new JLabel("CONTRASEÑA:");
+        JLabel iconUser = new JLabel();
+        try 
+        {
+            ImageIcon userIcon = new ImageIcon(getClass().getResource("user.png"));
+            Image imgUser = userIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            iconUser.setIcon(new ImageIcon(imgUser));
+        } 
+        catch (Exception e)
+        {
+            System.out.println("No se encontró user.png");
+        }
+
+        JPanel userPanel = new JPanel(new BorderLayout());
+        userPanel.setBounds(60, 140, 380, 35);
+        userPanel.setBackground(Color.WHITE);
+        userPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+        JPanel userIconPanel = new JPanel(new BorderLayout());
+        userIconPanel.setBackground(Color.WHITE);
+        userIconPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        userIconPanel.add(iconUser, BorderLayout.CENTER);
+
+        userPanel.add(userIconPanel, BorderLayout.WEST);
+        userPanel.add(usuario_registro, BorderLayout.CENTER);
+        regPanel.add(userPanel);
+
+        // Contraseña
+        JLabel lblPass = new JLabel("Contraseña:");
         lblPass.setBounds(60, 190, 300, 30);
         lblPass.setForeground(Color.WHITE);
         regPanel.add(lblPass);
 
         JPasswordField pass_registro = new JPasswordField();
-        pass_registro.setBounds(60, 220, 380, 35);
-        regPanel.add(pass_registro);
+        pass_registro.setBorder(null);
 
-        // boton crear cuenta
+        JLabel iconPass = new JLabel();
+        try
+        {
+            ImageIcon passIcon = new ImageIcon(getClass().getResource("lock.png"));
+            Image imgPass = passIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            iconPass.setIcon(new ImageIcon(imgPass));
+        }
+        catch (Exception e)
+        {
+            System.out.println("No se encontró lock.png");
+        }
+
+        JPanel passPanel = new JPanel(new BorderLayout());
+        passPanel.setBounds(60, 220, 380, 35);
+        passPanel.setBackground(Color.WHITE);
+        passPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+        JPanel passIconPanel = new JPanel(new BorderLayout());
+        passIconPanel.setBackground(Color.WHITE);
+        passIconPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        passIconPanel.add(iconPass, BorderLayout.CENTER);
+
+        passPanel.add(passIconPanel, BorderLayout.WEST);
+        passPanel.add(pass_registro, BorderLayout.CENTER);
+        regPanel.add(passPanel);
+
+        // Botón crear
         JButton crearBtn = new JButton("Crear cuenta");
         crearBtn.setBounds(125, 300, 250, 45);
+        crearBtn.setBackground(new Color(255, 155, 68));
+        crearBtn.setForeground(Color.WHITE);
+        crearBtn.setFocusPainted(false);
+        crearBtn.setBorder(new LineBorder(Color.WHITE, 2, true));
         regPanel.add(crearBtn);
 
-        crearBtn.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                String user = usuario_registro.getText();
-                String pass = new String(pass_registro.getPassword());
+        crearBtn.addActionListener(e -> {
+            String user = usuario_registro.getText();
+            String pass = new String(pass_registro.getPassword());
 
-                if (user.equals("") || pass.equals(""))
-                {
-                    usuario_registro.setBorder(new LineBorder(Color.RED, 1, true));
-                    pass_registro.setBorder(new LineBorder(Color.RED, 1, true));
-                    JOptionPane.showMessageDialog(null, "Por favor, rellena todos los campos solicitados.");
-                }
-                else
-                {
-                    usuario_registro.setBorder(new LineBorder(Color.GREEN, 1, true));
-                    pass_registro.setBorder(new LineBorder(Color.GREEN, 1, true));
-                    // mensaje de exito
-                    JOptionPane.showMessageDialog(null, "¡Cuenta creada exitosamente!");
-                }
+            if (user.equals("") || pass.equals("")) {
+                userPanel.setBorder(new LineBorder(Color.RED, 1, true));
+                passPanel.setBorder(new LineBorder(Color.RED, 1, true));
+                JOptionPane.showMessageDialog(null, "Por favor, rellena todos los campos.");
+            } else {
+                userPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+                passPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+                JOptionPane.showMessageDialog(null, "¡Cuenta creada exitosamente!");
             }
         });
 
-        // boton regresar
+        // Botón volver
         JButton volver = new JButton("Volver al Login");
-        volver.setBounds(150, 430, 200, 30);
+        volver.setBounds(150, 430, 200, 35);
+        volver.setBackground(new Color(90, 90, 90));
+        volver.setForeground(Color.WHITE);
+        volver.setFocusPainted(false);
+        volver.setBorder(new LineBorder(Color.WHITE, 2, true));
         regPanel.add(volver);
         volver.addActionListener(e -> router("login"));
 
         this.revalidate();
         this.repaint();
     }
+    
 	public void usuarios()
 	{
 		JPanel users = new JPanel();
@@ -448,7 +500,7 @@ public class Ventana extends JFrame
 		users.setLayout(null);    		
 		this.add(users);   
 
-		JLabel users_title = new JLabel("USUARIOS");
+		JLabel users_title = new JLabel("Usuarios");
 		users_title.setBounds(350, 50, 100, 40);
 		users_title.setOpaque(true);
 		users_title.setBackground(Color.decode("#F27A61"));
@@ -1161,128 +1213,639 @@ public class Ventana extends JFrame
 	
 	public void recuperar()
 	{
-		this.getContentPane().removeAll();
-        this.setLayout(null);
-	    this.setTitle("Recuperar contrasena");
+	    this.setTitle("Recuperar contraseña");
+	    this.getContentPane().removeAll();
+	    this.setLayout(null);
+	    this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    JLabel titulo = new JLabel("Recuperar");
-	    titulo.setBounds(0, 30, 300, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
-	    titulo.setForeground(Color.BLACK);
-		this.add(titulo);
-		
+	    // Panel principal
+	    JPanel recPanel = new JPanel();
+	    recPanel.setBounds(250, 50, 500, 500);
+	    recPanel.setLayout(null);
+	    recPanel.setBackground(new Color(45, 45, 45));
+	    this.add(recPanel);
 
-        this.revalidate();
-        this.repaint();	
-	    
+	    // Título
+	    JLabel titulo = new JLabel("Recuperar contraseña");
+	    titulo.setBounds(50, 30, 400, 40);
+	    titulo.setFont(new Font("Arial", Font.BOLD, 28));
+	    titulo.setForeground(Color.WHITE);
+	    titulo.setHorizontalAlignment(SwingConstants.CENTER);
+	    recPanel.add(titulo);
+
+	    // Texto
+	    JLabel texto = new JLabel("Introduce tu correo para enviar un enlace de recuperación");
+	    texto.setBounds(50, 80, 400, 25);
+	    texto.setForeground(Color.LIGHT_GRAY);
+	    texto.setHorizontalAlignment(SwingConstants.CENTER);
+	    recPanel.add(texto);
+
+	    // Label correo
+	    JLabel lblCorreo = new JLabel("Correo electrónico:");
+	    lblCorreo.setBounds(60, 140, 300, 25);
+	    lblCorreo.setForeground(Color.WHITE);
+	    recPanel.add(lblCorreo);
+
+	    // Campo correo + icono
+	    JTextField correo = new JTextField();
+	    correo.setBorder(null);
+
+	    JLabel iconMail = new JLabel();
+	    try {
+	        ImageIcon mailIcon = new ImageIcon(getClass().getResource("mail.png"));
+	        Image imgMail = mailIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+	        iconMail.setIcon(new ImageIcon(imgMail));
+	    } catch (Exception e) {
+	        System.out.println("No se encontró mail.png");
+	    }
+
+	    JPanel mailPanel = new JPanel(new BorderLayout());
+	    mailPanel.setBounds(60, 170, 380, 35);
+	    mailPanel.setBackground(Color.WHITE);
+	    mailPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+	    JPanel iconContainer = new JPanel(new BorderLayout());
+	    iconContainer.setBackground(Color.WHITE);
+	    iconContainer.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+	    iconContainer.add(iconMail, BorderLayout.CENTER);
+
+	    mailPanel.add(iconContainer, BorderLayout.WEST);
+	    mailPanel.add(correo, BorderLayout.CENTER);
+
+	    recPanel.add(mailPanel);
+
+	    // Botón enviar
+	    JButton enviarBtn = new JButton("Enviar enlace");
+	    enviarBtn.setBounds(125, 260, 250, 45);
+	    enviarBtn.setBackground(new Color(255, 155, 68));
+	    enviarBtn.setForeground(Color.WHITE);
+	    enviarBtn.setFocusPainted(false);
+	    enviarBtn.setBorder(new LineBorder(Color.WHITE, 2, true));
+	    recPanel.add(enviarBtn);
+
+	    enviarBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+	        public void mouseEntered(java.awt.event.MouseEvent evt) {
+	            enviarBtn.setBackground(new Color(249, 176, 113));
+	        }
+	        public void mouseExited(java.awt.event.MouseEvent evt) {
+	            enviarBtn.setBackground(new Color(255, 155, 68));
+	        }
+	    });
+
+	    enviarBtn.addActionListener(e -> {
+	        String email = correo.getText();
+
+	        if (email.equals("")) {
+	            mailPanel.setBorder(new LineBorder(Color.RED, 1, true));
+	            JOptionPane.showMessageDialog(null, "Introduce un correo válido");
+	        } else {
+	            mailPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+	            JOptionPane.showMessageDialog(null, "Se ha enviado el enlace de recuperación");
+	        }
+	    });
+
+	    // Botón volver
+	    JButton volverBtn = new JButton("Volver");
+	    volverBtn.setBounds(150, 340, 200, 35);
+	    volverBtn.setBackground(new Color(90, 90, 90));
+	    volverBtn.setForeground(Color.WHITE);
+	    volverBtn.setFocusPainted(false);
+	    volverBtn.setBorder(new LineBorder(Color.WHITE, 2, true));
+	    volverBtn.addActionListener(e -> router("login"));
+	    recPanel.add(volverBtn);
+
+	    this.revalidate();
+	    this.repaint();
 	}
 	
 	public void alta()
 	{
+		this.setTitle("Alta de usuario");
 		this.getContentPane().removeAll();
-        this.setLayout(null);
-	    this.setTitle("Alta usuario");
+		this.setLayout(null);
+		this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    JLabel titulo = new JLabel("Alta usuario");
-	    titulo.setBounds(0, 30, 300, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
-	    titulo.setForeground(Color.BLACK);
-		this.add(titulo);
+		JPanel panel = new JPanel();
+		panel.setBounds(250, 50, 500, 550);
+		panel.setBackground(new Color(45, 45, 45));
+		panel.setLayout(null);
+		this.add(panel);
+
+		JLabel titulo = new JLabel("Alta de usuario");
+		titulo.setBounds(50, 30, 400, 50);
+		titulo.setFont(new Font("Arial", Font.BOLD, 28));
+		titulo.setForeground(Color.WHITE);
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(titulo);
+
+		// Campo nombre_completo
+		JLabel lblNombre = new JLabel("Nombre completo:");
+		lblNombre.setBounds(60, 110, 300, 25);
+		lblNombre.setForeground(Color.WHITE);
+		panel.add(lblNombre);
+
+		JTextField txtNombre = new JTextField();
+		txtNombre.setBorder(null);
+
+		JLabel iconUser = new JLabel();
+		try
+		{
+			ImageIcon userIcon = new ImageIcon(getClass().getResource("user.png"));
+			Image imgUser = userIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+			iconUser.setIcon(new ImageIcon(imgUser));
+		}
+		catch (Exception ex)
+		{
+			System.out.println("No se encontró user.png");
+		}
+
+		JPanel namePanel = new JPanel(new BorderLayout());
+		namePanel.setBounds(60, 140, 380, 35);
+		namePanel.setBackground(Color.WHITE);
+		namePanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+		JPanel iconContainerUser = new JPanel(new BorderLayout());
+		iconContainerUser.setBackground(Color.WHITE);
+		iconContainerUser.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+		iconContainerUser.add(iconUser, BorderLayout.CENTER);
+
+		namePanel.add(iconContainerUser, BorderLayout.WEST);
+		namePanel.add(txtNombre, BorderLayout.CENTER);
+		panel.add(namePanel);
+
+		// Campo correo
+		JLabel lblCorreo = new JLabel("Correo:");
+		lblCorreo.setBounds(60, 200, 300, 25);
+		lblCorreo.setForeground(Color.WHITE);
+		panel.add(lblCorreo);
+
+		JTextField txtCorreo = new JTextField();
+		txtCorreo.setBorder(null);
+
+		JLabel iconMail = new JLabel();
+		try
+		{
+			ImageIcon mailIcon = new ImageIcon(getClass().getResource("mail.png"));
+			Image imgMail = mailIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+			iconMail.setIcon(new ImageIcon(imgMail));
+		}
+		catch (Exception ex)
+		{
+			System.out.println("No se encontró mail.png");
+		}
+
+		JPanel mailPanel = new JPanel(new BorderLayout());
+		mailPanel.setBounds(60, 230, 380, 35);
+		mailPanel.setBackground(Color.WHITE);
+		mailPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+		JPanel iconContainerMail = new JPanel(new BorderLayout());
+		iconContainerMail.setBackground(Color.WHITE);
+		iconContainerMail.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+		iconContainerMail.add(iconMail, BorderLayout.CENTER);
+
+		mailPanel.add(iconContainerMail, BorderLayout.WEST);
+		mailPanel.add(txtCorreo, BorderLayout.CENTER);
+		panel.add(mailPanel);
+
+		// Botón guardar
+		JButton guardar = new JButton("Guardar");
+		guardar.setBounds(125, 320, 250, 45);
+		guardar.setBackground(new Color(255, 155, 68));
+		guardar.setForeground(Color.WHITE);
+		guardar.setFocusPainted(false);
+		guardar.setBorder(new LineBorder(Color.WHITE, 2, true));
+		panel.add(guardar);
 		
+		guardar.addActionListener(e ->
+		{
+		    String nombre = txtNombre.getText().trim();
+		    String correo = txtCorreo.getText().trim();
+		    boolean error = false;
 
-        this.revalidate();
-        this.repaint();	
-	    
+		    if (nombre.isEmpty())
+		    {
+		        namePanel.setBorder(new LineBorder(Color.RED, 1, true));
+		        error = true;
+		    }
+		    else
+		    {
+		        namePanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+		    }
+
+		    if (correo.isEmpty())
+		    {
+		        mailPanel.setBorder(new LineBorder(Color.RED, 1, true));
+		        error = true;
+		    }
+		    else
+		    {
+		        mailPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+		    }
+
+		    if (error)
+		    {
+		        JOptionPane.showMessageDialog(null, "Completa todos los campos", "Aviso", JOptionPane.WARNING_MESSAGE);
+		        return;
+		    }
+
+		    JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+		});
+
+		// Botón volver
+		JButton volver = new JButton("Volver");
+		volver.setBounds(150, 400, 200, 35);
+		volver.setBackground(new Color(90, 90, 90));
+		volver.setForeground(Color.WHITE);
+		volver.setFocusPainted(false);
+		volver.setBorder(new LineBorder(Color.WHITE, 2, true));
+		volver.addActionListener(e -> router("login"));
+		panel.add(volver);
+
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void baja()
 	{
+		this.setTitle("Baja de usuario");
 		this.getContentPane().removeAll();
-        this.setLayout(null);
-	    this.setTitle("Baja usuario");
+		this.setLayout(null);
+		this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    JLabel titulo = new JLabel("Baja usuario");
-	    titulo.setBounds(0, 30, 300, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
-	    titulo.setForeground(Color.BLACK);
-		this.add(titulo);
+		JPanel panel = new JPanel();
+		panel.setBounds(250, 50, 500, 500);
+		panel.setBackground(new Color(45, 45, 45));
+		panel.setLayout(null);
+		this.add(panel);
+
+		JLabel titulo = new JLabel("BAJA DE USUARIO");
+		titulo.setBounds(50, 30, 400, 50);
+		titulo.setFont(new Font("Arial", Font.BOLD, 28));
+		titulo.setForeground(Color.WHITE);
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(titulo);
+
+		JLabel lblId = new JLabel("ID o correo del usuario:");
+		lblId.setBounds(60, 140, 300, 25);
+		lblId.setForeground(Color.WHITE);
+		panel.add(lblId);
+
+		JTextField txtId = new JTextField();
+		txtId.setBorder(null);
+
+		JLabel iconDel = new JLabel();
+		try
+		{
+			ImageIcon delIcon = new ImageIcon(getClass().getResource("user.png")); // O trash.png si tienes
+			Image imgDel = delIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+			iconDel.setIcon(new ImageIcon(imgDel));
+		}
+		catch (Exception ex)
+		{
+			System.out.println("No se encontró icono para baja");
+		}
+
+		JPanel idPanel = new JPanel(new BorderLayout());
+		idPanel.setBounds(60, 170, 380, 35);
+		idPanel.setBackground(Color.WHITE);
+		idPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+		JPanel iconContainer = new JPanel(new BorderLayout());
+		iconContainer.setBackground(Color.WHITE);
+		iconContainer.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+		iconContainer.add(iconDel, BorderLayout.CENTER);
+
+		idPanel.add(iconContainer, BorderLayout.WEST);
+		idPanel.add(txtId, BorderLayout.CENTER);
+		panel.add(idPanel);
+
+		// Botón eliminar
+		JButton eliminar = new JButton("Eliminar Usuario");
+		eliminar.setBounds(125, 260, 250, 45);
+		eliminar.setBackground(new Color(255, 155, 68));
+		eliminar.setForeground(Color.WHITE);
+		eliminar.setFocusPainted(false);
+		eliminar.setBorder(new LineBorder(Color.WHITE, 2, true));
+		panel.add(eliminar);
 		
+		eliminar.addActionListener(e ->
+		{
+		    String id = txtId.getText().trim();
 
-        this.revalidate();
-        this.repaint();	
-	    
+		    if (id.isEmpty())
+		    {
+		        idPanel.setBorder(new LineBorder(Color.RED, 1, true));
+		        JOptionPane.showMessageDialog(null, "Ingresa un ID o correo", "Aviso", JOptionPane.WARNING_MESSAGE);
+		        return;
+		    }
+
+		    idPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+
+		    int confirmar = JOptionPane.showConfirmDialog(
+		        null,
+		        "¿Seguro que quieres eliminar este usuario?",
+		        "Confirmar",
+		        JOptionPane.YES_NO_OPTION
+		    );
+
+		    if (confirmar == JOptionPane.YES_OPTION)
+		    {
+		        JOptionPane.showMessageDialog(null, "Usuario eliminado");
+		    }
+		});
+
+		// Botón volver
+		JButton volver = new JButton("Volver");
+		volver.setBounds(150, 350, 200, 35);
+		volver.setBackground(new Color(90, 90, 90));
+		volver.setForeground(Color.WHITE);
+		volver.setFocusPainted(false);
+		volver.setBorder(new LineBorder(Color.WHITE, 2, true));
+		volver.addActionListener(e -> router("login"));
+		panel.add(volver);
+
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void consultar()
 	{
+		this.setTitle("Consultar usuarios");
 		this.getContentPane().removeAll();
-        this.setLayout(null);
-	    this.setTitle("Consultar usuario");
+		this.setLayout(null);
+		this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    JLabel titulo = new JLabel("Consultar usuario");
-	    titulo.setBounds(0, 30, 300, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
-	    titulo.setForeground(Color.BLACK);
-		this.add(titulo);
+		JPanel panel = new JPanel();
+		panel.setBounds(150, 50, 700, 550);
+		panel.setBackground(new Color(45, 45, 45));
+		panel.setLayout(null);
+		this.add(panel);
+
+		JLabel titulo = new JLabel("Consultar usuarios");
+		titulo.setBounds(150, 20, 400, 40);
+		titulo.setFont(new Font("Arial", Font.BOLD, 28));
+		titulo.setForeground(Color.WHITE);
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(titulo);
+
+		// Buscador
+		JPanel searchPanel = new JPanel(new BorderLayout());
+		searchPanel.setBounds(60, 80, 400, 35);
+		searchPanel.setBackground(Color.WHITE);
+		searchPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+		JTextField buscar = new JTextField();
+		buscar.setBorder(null);
 		
+		JLabel iconSearch = new JLabel();
+		try
+		{
+			ImageIcon searchIcon = new ImageIcon(getClass().getResource("search.png")); 
+			Image imgSearch = searchIcon.getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+			iconSearch.setIcon(new ImageIcon(imgSearch));
+		}
+		catch (Exception ex) { }
 
-        this.revalidate();
-        this.repaint();	
-	    
+		JPanel iconContainer = new JPanel(new BorderLayout());
+		iconContainer.setBackground(Color.WHITE);
+		iconContainer.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+		iconContainer.add(iconSearch, BorderLayout.CENTER);
+
+		searchPanel.add(iconContainer, BorderLayout.WEST);
+		searchPanel.add(buscar, BorderLayout.CENTER);
+		panel.add(searchPanel);
+
+		JButton buscarBtn = new JButton("Buscar");
+		buscarBtn.setBounds(480, 80, 150, 35);
+		buscarBtn.setBackground(new Color(255, 155, 68));
+		buscarBtn.setForeground(Color.WHITE);
+		buscarBtn.setFocusPainted(false);
+		buscarBtn.setBorder(new LineBorder(Color.WHITE, 1, true));
+		panel.add(buscarBtn);
+		
+		buscarBtn.addActionListener(e ->
+		{
+		    String dato = buscar.getText().trim();
+
+		    if (dato.isEmpty())
+		    {
+		        searchPanel.setBorder(new LineBorder(Color.RED, 1, true));
+		        JOptionPane.showMessageDialog(null, "Escribe algo para buscar", "Aviso", JOptionPane.WARNING_MESSAGE);
+		        return;
+		    }
+
+		    searchPanel.setBorder(new LineBorder(Color.GREEN, 1, true));
+		    JOptionPane.showMessageDialog(null, "Búsqueda realizada");
+		});
+
+		// Tabla
+		String[] columnas = {"ID", "Nombre", "Correo"};
+		String[][] data = {
+			{"1", "Juan Pérez", "juan@example.com"},
+			{"2", "María García", "maria@example.com"},
+			{"3", "Carlos López", "carlos@example.com"},
+			{"4", "Ana Martínez", "ana@example.com"}
+		};
+
+		JTable tabla = new JTable(data, columnas);
+		tabla.setRowHeight(25);
+		tabla.getTableHeader().setBackground(new Color(60, 60, 60));
+		tabla.getTableHeader().setForeground(Color.WHITE);
+		tabla.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
+		
+		JScrollPane scroll = new JScrollPane(tabla);
+		scroll.setBounds(60, 140, 580, 280);
+		scroll.setBorder(new LineBorder(new Color(90, 90, 90), 1));
+		panel.add(scroll);
+
+		// Botón volver
+		JButton volver = new JButton("Volver");
+		volver.setBounds(250, 450, 200, 35);
+		volver.setBackground(new Color(90, 90, 90));
+		volver.setForeground(Color.WHITE);
+		volver.setFocusPainted(false);
+		volver.setBorder(new LineBorder(Color.WHITE, 1, true));
+		volver.addActionListener(e -> router("login"));
+		panel.add(volver);
+
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void ayudaUsuario()
 	{
+		this.setTitle("Ayuda - Usuario");
 		this.getContentPane().removeAll();
-        this.setLayout(null);
-	    this.setTitle("Ayuda usuario");
+		this.setLayout(null);
+		this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    JLabel titulo = new JLabel("Ayuda usuario");
-	    titulo.setBounds(0, 30, 300, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
-	    titulo.setForeground(Color.BLACK);
-		this.add(titulo);
+		JPanel panel = new JPanel();
+		panel.setBounds(250, 50, 500, 500);
+		panel.setBackground(new Color(45, 45, 45));
+		panel.setLayout(null);
+		this.add(panel);
+
+		JLabel titulo = new JLabel("¿Cómo crear un usuario?");
+		titulo.setBounds(50, 30, 400, 40);
+		titulo.setFont(new Font("Arial", Font.BOLD, 26));
+		titulo.setForeground(Color.WHITE);
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(titulo);
+
+		JPanel infoPanel = new JPanel(new BorderLayout());
+		infoPanel.setBounds(60, 100, 380, 220);
+		infoPanel.setBackground(new Color(60, 60, 60));
+		infoPanel.setBorder(BorderFactory.createCompoundBorder(
+			new LineBorder(new Color(100, 100, 100), 1, true),
+			BorderFactory.createEmptyBorder(20, 20, 20, 20)
+		));
+
 		
+		JTextArea texto = new JTextArea(
+			"1. Ve al menú Usuarios → Alta.\n\n" +
+			"2. Llena los datos solicitados (Nombre y Correo).\n\n" +
+			"3. Pulsa el botón 'Guardar' para finalizar el proceso."
+		);
+		texto.setEditable(false);
+		texto.setWrapStyleWord(true);
+		texto.setLineWrap(true);
+		texto.setBackground(new Color(60, 60, 60));
+		texto.setForeground(Color.WHITE);
+		texto.setFont(new Font("Arial", Font.PLAIN, 15));
+		
+		infoPanel.add(texto, BorderLayout.CENTER);
+		panel.add(infoPanel);
 
-        this.revalidate();
-        this.repaint();	
-	    
-	}
+		// Botón volver 
+		JButton volver = new JButton("Volver");
+		volver.setBounds(150, 380, 200, 40);
+		volver.setBackground(new Color(90, 90, 90));
+		volver.setForeground(Color.WHITE);
+		volver.setFocusPainted(false);
+		volver.setFont(new Font("Arial", Font.BOLD, 14));
+		volver.setBorder(new LineBorder(Color.WHITE, 1, true));
+		volver.addActionListener(e -> router("login"));
+		panel.add(volver);
+
+		this.revalidate();
+		this.repaint();
+	}	
 	
 	public void ayudaSistema()
 	{
+		this.setTitle("Ayuda - Sistema");
 		this.getContentPane().removeAll();
-        this.setLayout(null);
-	    this.setTitle("Ayuda sistema");
+		this.setLayout(null);
+		this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    JLabel titulo = new JLabel("Ayuda sistema");
-	    titulo.setBounds(0, 30, 300, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
-	    titulo.setForeground(Color.BLACK);
-		this.add(titulo);
-		
+		JPanel panel = new JPanel();
+		panel.setBounds(250, 50, 500, 500);
+		panel.setBackground(new Color(45, 45, 45));
+		panel.setLayout(null);
+		this.add(panel);
 
-        this.revalidate();
-        this.repaint();	
-	    
+		JLabel titulo = new JLabel("Acceso al sistema");
+		titulo.setBounds(50, 30, 400, 40);
+		titulo.setFont(new Font("Arial", Font.BOLD, 26));
+		titulo.setForeground(Color.WHITE);
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(titulo);
+
+		JPanel infoPanel = new JPanel(new BorderLayout());
+		infoPanel.setBounds(60, 100, 380, 220);
+		infoPanel.setBackground(new Color(60, 60, 60));
+		infoPanel.setBorder(BorderFactory.createCompoundBorder(
+			new LineBorder(new Color(100, 100, 100), 1, true),
+			BorderFactory.createEmptyBorder(25, 25, 25, 25)
+		));
+
+		JTextArea texto = new JTextArea(
+			"- Introduce correo y contraseña.\n\n" +
+			"- Si no tienes cuenta, solicita un registro al administrador.\n\n" +
+			"- Si olvidaste tu contraseña, utiliza la opción 'Recuperar' en el inicio."
+		);
+		texto.setEditable(false);
+		texto.setWrapStyleWord(true);
+		texto.setLineWrap(true);
+		texto.setBackground(new Color(60, 60, 60));
+		texto.setForeground(Color.WHITE);
+		texto.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		infoPanel.add(texto, BorderLayout.CENTER);
+		panel.add(infoPanel);
+
+		// Botón volver
+		JButton volver = new JButton("Volver");
+		volver.setBounds(150, 380, 200, 40);
+		volver.setBackground(new Color(90, 90, 90));
+		volver.setForeground(Color.WHITE);
+		volver.setFocusPainted(false);
+		volver.setFont(new Font("Arial", Font.BOLD, 14));
+		volver.setBorder(new LineBorder(Color.WHITE, 1, true));
+		volver.addActionListener(e -> router("login"));
+		panel.add(volver);
+
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void ayudaContrasena()
 	{
+		this.setTitle("Ayuda - Contraseña");
 		this.getContentPane().removeAll();
-        this.setLayout(null);
-	    this.setTitle("ayuda contrasena");
+		this.setLayout(null);
+		this.getContentPane().setBackground(new Color(28, 28, 28));
 
-	    JLabel titulo = new JLabel("ayuda contrasena");
-	    titulo.setBounds(0, 30, 300, 40);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 30));
-	    titulo.setForeground(Color.BLACK);
-		this.add(titulo);
-		
+		JPanel panel = new JPanel();
+		panel.setBounds(250, 50, 500, 500);
+		panel.setBackground(new Color(45, 45, 45));
+		panel.setLayout(null);
+		this.add(panel);
 
-        this.revalidate();
-        this.repaint();	
-	    
+		JLabel titulo = new JLabel("¿Olvidaste tu contraseña?");
+		titulo.setBounds(50, 30, 400, 40);
+		titulo.setFont(new Font("Arial", Font.BOLD, 26));
+		titulo.setForeground(Color.WHITE);
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(titulo);
+
+		JPanel infoPanel = new JPanel(new BorderLayout());
+		infoPanel.setBounds(60, 100, 380, 220);
+		infoPanel.setBackground(new Color(60, 60, 60));
+		infoPanel.setBorder(BorderFactory.createCompoundBorder(
+			new LineBorder(new Color(100, 100, 100), 1, true),
+			BorderFactory.createEmptyBorder(25, 25, 25, 25)
+		));
+
+		JTextArea texto = new JTextArea(
+			"1. En la pantalla principal, selecciona 'Recuperar contraseña'.\n\n" +
+			"2. Ingresa la dirección de correo electrónico asociada a tu cuenta.\n\n" +
+			"3. Revisa tu bandeja de entrada y sigue las instrucciones del mensaje."
+		);
+		texto.setEditable(false);
+		texto.setWrapStyleWord(true);
+		texto.setLineWrap(true);
+		texto.setBackground(new Color(60, 60, 60));
+		texto.setForeground(Color.WHITE);
+		texto.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		infoPanel.add(texto, BorderLayout.CENTER);
+		panel.add(infoPanel);
+
+		// Botón volver
+		JButton volver = new JButton("Volver");
+		volver.setBounds(150, 380, 200, 40);
+		volver.setBackground(new Color(90, 90, 90));
+		volver.setForeground(Color.WHITE);
+		volver.setFocusPainted(false);
+		volver.setFont(new Font("Arial", Font.BOLD, 14));
+		volver.setBorder(new LineBorder(Color.WHITE, 1, true));
+		volver.addActionListener(e -> router("login"));
+		panel.add(volver);
+
+		this.revalidate();
+		this.repaint();
 	}
 
 	public static void main(String[] args) 
