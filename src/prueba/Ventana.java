@@ -50,7 +50,7 @@ public class Ventana extends JFrame
 		
 		
 		//calculadoraLayout();
-		login();
+		//login();
 		//registro();
 		//usuarios();
 		//calculadora();
@@ -59,7 +59,8 @@ public class Ventana extends JFrame
 		//pintar();
 		//casa();
 		//mario();
-		menu();
+		//menu();
+		diseñoGato();
 		
 		this.setVisible(true);
 	}
@@ -1479,7 +1480,7 @@ public class Ventana extends JFrame
 		panel.setLayout(null);
 		this.add(panel);
 
-		JLabel titulo = new JLabel("BAJA DE USUARIO");
+		JLabel titulo = new JLabel("Baja de usuario");
 		titulo.setBounds(50, 30, 400, 50);
 		titulo.setFont(new Font("Arial", Font.BOLD, 28));
 		titulo.setForeground(Color.WHITE);
@@ -1846,6 +1847,114 @@ public class Ventana extends JFrame
 
 		this.revalidate();
 		this.repaint();
+	}
+	public void diseñoGato()
+	{
+	    this.setTitle("Diseño gato");
+	    this.getContentPane().removeAll();
+	    this.setLayout(null);
+	    this.getContentPane().setBackground(new Color(28, 28, 28));
+
+	    // Panel 
+	    JPanel tablero = new JPanel();
+	    tablero.setBounds(300, 80, 400, 400);
+	    tablero.setBackground(new Color(45, 45, 45));
+	    tablero.setLayout(new GridLayout(3, 3, 10, 10));
+	    this.add(tablero);
+
+	    // Variables
+	    Font font = new Font("Arial", Font.BOLD, 60);
+	    Color fondoBtn = new Color(60, 60, 60);
+	    Color textoBtn = Color.WHITE;
+	    LineBorder bordeBtn = new LineBorder(new Color(100, 100, 100), 2);
+	    
+	    // Colores
+	    Color colorX = new Color(92, 222, 255);  // Rojo
+	    Color colorO = new Color(255, 92, 92); // Cian
+
+	    // 1
+	    JButton b1 = new JButton("X");
+	    b1.setFont(font);
+	    b1.setBackground(fondoBtn);
+	    b1.setForeground(colorX);
+	    b1.setBorder(bordeBtn);
+	    b1.setFocusPainted(false);
+	    tablero.add(b1);
+
+	    // 2
+	    JButton b2 = new JButton("");
+	    b2.setFont(font);
+	    b2.setBackground(fondoBtn);
+	    b2.setForeground(textoBtn);
+	    b2.setBorder(bordeBtn);
+	    b2.setFocusPainted(false);
+	    tablero.add(b2);
+
+	    // 3
+	    JButton b3 = new JButton("O");
+	    b3.setFont(font);
+	    b3.setBackground(fondoBtn);
+	    b3.setForeground(colorO);
+	    b3.setBorder(bordeBtn);
+	    b3.setFocusPainted(false);
+	    tablero.add(b3);
+
+	    // 4
+	    JButton b4 = new JButton("");
+	    b4.setFont(font);
+	    b4.setBackground(fondoBtn);
+	    b4.setForeground(textoBtn);
+	    b4.setBorder(bordeBtn);
+	    b4.setFocusPainted(false);
+	    tablero.add(b4);
+
+	    // 5
+	    JButton b5 = new JButton("X");
+	    b5.setFont(font);
+	    b5.setBackground(fondoBtn);
+	    b5.setForeground(colorX);
+	    b5.setBorder(bordeBtn);
+	    b5.setFocusPainted(false);
+	    tablero.add(b5);
+
+	    // 6
+	    JButton b6 = new JButton("");
+	    b6.setFont(font);
+	    b6.setBackground(fondoBtn);
+	    b6.setForeground(textoBtn);
+	    b6.setBorder(bordeBtn);
+	    b6.setFocusPainted(false);
+	    tablero.add(b6);
+
+	    // 7
+	    JButton b7 = new JButton("");
+	    b7.setFont(font);
+	    b7.setBackground(fondoBtn);
+	    b7.setForeground(textoBtn);
+	    b7.setBorder(bordeBtn);
+	    b7.setFocusPainted(false);
+	    tablero.add(b7);
+
+	    // 8
+	    JButton b8 = new JButton("");
+	    b8.setFont(font);
+	    b8.setBackground(fondoBtn);
+	    b8.setForeground(textoBtn);
+	    b8.setBorder(bordeBtn);
+	    b8.setFocusPainted(false);
+	    tablero.add(b8);
+
+	    // 9
+	    JButton b9 = new JButton("O");
+	    b9.setFont(font);
+	    b9.setBackground(fondoBtn);
+	    b9.setForeground(colorO);
+	    b9.setBorder(bordeBtn);
+	    b9.setFocusPainted(false);
+	    tablero.add(b9);
+
+	    this.revalidate();
+	    this.repaint();
 	}
 
 	public static void main(String[] args) 
