@@ -38,8 +38,27 @@ import javax.swing.border.LineBorder;
 
 public class Ventana extends JFrame 
 {
+	// Variables globales
+	boolean turnoDeX = true; 
+    int[][] matrizLogica = new int[3][3]; 
+    BotonGato[][] botones = new BotonGato[3][3]; 
+    int victoriasX = 0;
+    int victoriasO = 0;
+    JLabel lblX, lblO, lblTurno;
+    
+    Color colorX = new Color(92, 222, 255); // Azul cian
+    Color colorO = new Color(255, 92, 92);  // Rojo
+    
+    Color fondoBoton = new Color(60, 60, 60); 	 // Gris
+    Color textoBoton = Color.WHITE; 			
+    Color colorBorde = new Color(100, 100, 100); // Gris claro
+    
+    Color fondoVentana = new Color(28, 28, 28); // Gris oscuro
+    Color fondoTablero = new Color(45, 45, 45); // Gris intermedio
 	public Ventana() 
 	{
+		
+		
 		//this.setSize(360, 480);
 		this.setSize(1000, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1848,114 +1867,186 @@ public class Ventana extends JFrame
 		this.revalidate();
 		this.repaint();
 	}
+	
 	public void diseñoGato()
-	{
-	    this.setTitle("Diseño gato");
-	    this.getContentPane().removeAll();
-	    this.setLayout(null);
-	    this.getContentPane().setBackground(new Color(28, 28, 28));
+    {
+        this.setTitle("Juego gato");
+        this.getContentPane().removeAll();
+        this.setLayout(null);
+        this.getContentPane().setBackground(fondoVentana);
+        
+        // Marcador - Label X
+        lblX = new JLabel("X: 0");
+        lblX.setBounds(320, 50, 100, 50);
+        lblX.setForeground(textoBoton);
+        lblX.setFont(new Font("Arial", Font.BOLD, 30));
+        this.add(lblX);
 
-	    // Panel 
-	    JPanel tablero = new JPanel();
-	    tablero.setBounds(300, 80, 400, 400);
-	    tablero.setBackground(new Color(45, 45, 45));
-	    tablero.setLayout(new GridLayout(3, 3, 10, 10));
-	    this.add(tablero);
+        // Marcador - Label O
+        lblO = new JLabel("O: 0");
+        lblO.setBounds(620, 50, 100, 50);
+        lblO.setForeground(textoBoton);
+        lblO.setFont(new Font("Arial", Font.BOLD, 30));
+        this.add(lblO);
+        
+        // Marcador - Label turno
+        lblTurno = new JLabel("Turno de: X", SwingConstants.CENTER);
+        lblTurno.setBounds(400, 60, 200, 30); 
+        lblTurno.setForeground(colorX);
+        lblTurno.setFont(new Font("Arial", Font.BOLD, 22));
+        this.add(lblTurno);
 
-	    // Variables
-	    Font font = new Font("Arial", Font.BOLD, 60);
-	    Color fondoBtn = new Color(60, 60, 60);
-	    Color textoBtn = Color.WHITE;
-	    LineBorder bordeBtn = new LineBorder(new Color(100, 100, 100), 2);
-	    
-	    // Colores
-	    Color colorX = new Color(92, 222, 255);  // Rojo
-	    Color colorO = new Color(255, 92, 92); // Cian
+        // Tablero
+        JPanel tablero = new JPanel();
+        tablero.setBounds(300, 90, 400, 400);
+        tablero.setBackground(fondoTablero);
+        tablero.setLayout(new GridLayout(3, 3, 10, 10));
+        this.add(tablero);
 
-	    // 1
-	    JButton b1 = new JButton("X");
-	    b1.setFont(font);
-	    b1.setBackground(fondoBtn);
-	    b1.setForeground(colorX);
-	    b1.setBorder(bordeBtn);
-	    b1.setFocusPainted(false);
-	    tablero.add(b1);
+        // Creación de botones
+        for (int fila = 0; fila < 3; fila++)
+        {
+            for (int col = 0; col < 3; col++)
+            {
+                BotonGato boton = new BotonGato(fila, col);
+                botones[fila][col] = boton; 
+                tablero.add(boton);
 
-	    // 2
-	    JButton b2 = new JButton("");
-	    b2.setFont(font);
-	    b2.setBackground(fondoBtn);
-	    b2.setForeground(textoBtn);
-	    b2.setBorder(bordeBtn);
-	    b2.setFocusPainted(false);
-	    tablero.add(b2);
+                boton.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        BotonGato btn = (BotonGato) e.getSource();
+                        
+                        if (matrizLogica[btn.fila][btn.columna] == 0) 
+                        {
+                            btn.setText(turnoDeX ? "X" : "O");
+                            btn.setForeground(turnoDeX ? colorX : colorO);
+                            matrizLogica[btn.fila][btn.columna] = turnoDeX ? 1 : 2;
+                            
+                            turnoDeX = !turnoDeX;
+                            lblTurno.setText(turnoDeX ? "Turno de: X" : "Turno de: O");
+                            lblTurno.setForeground(turnoDeX ? colorX : colorO);
+                            
+                            verificarGanador();
+                        }
+                    }
+                });
+            }
+        }
 
-	    // 3
-	    JButton b3 = new JButton("O");
-	    b3.setFont(font);
-	    b3.setBackground(fondoBtn);
-	    b3.setForeground(colorO);
-	    b3.setBorder(bordeBtn);
-	    b3.setFocusPainted(false);
-	    tablero.add(b3);
+        // Botón reiniciar
+        JButton btnReiniciar = new JButton("Reiniciar");
+        btnReiniciar.setBounds(300, 500, 400, 50);
+        btnReiniciar.setFont(new Font("Arial", Font.BOLD, 24));
+        
+        btnReiniciar.setBackground(fondoBoton); 
+        btnReiniciar.setForeground(textoBoton); 
+        btnReiniciar.setBorder(new LineBorder(colorBorde, 2)); 
+        btnReiniciar.setFocusPainted(false);
+        this.add(btnReiniciar);
 
-	    // 4
-	    JButton b4 = new JButton("");
-	    b4.setFont(font);
-	    b4.setBackground(fondoBtn);
-	    b4.setForeground(textoBtn);
-	    b4.setBorder(bordeBtn);
-	    b4.setFocusPainted(false);
-	    tablero.add(b4);
+        // Listener para el botón reiniciar
+        btnReiniciar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                reiniciarTablero();
+            }
+        });
 
-	    // 5
-	    JButton b5 = new JButton("X");
-	    b5.setFont(font);
-	    b5.setBackground(fondoBtn);
-	    b5.setForeground(colorX);
-	    b5.setBorder(bordeBtn);
-	    b5.setFocusPainted(false);
-	    tablero.add(b5);
+        this.revalidate();
+        this.repaint();
+    }
+	
+	public void verificarGanador()
+    {
+        int ganador = 0; 
 
-	    // 6
-	    JButton b6 = new JButton("");
-	    b6.setFont(font);
-	    b6.setBackground(fondoBtn);
-	    b6.setForeground(textoBtn);
-	    b6.setBorder(bordeBtn);
-	    b6.setFocusPainted(false);
-	    tablero.add(b6);
+        // Revisar filas y columnas
+        // 0 = vacío, 1 = Jugador X, 2 = Jugador O
+        for (int i = 0; i < 3; i++)
+        {
+            if (matrizLogica[i][0] != 0 && matrizLogica[i][0] == matrizLogica[i][1] && matrizLogica[i][0] == matrizLogica[i][2]) ganador = matrizLogica[i][0];
+            if (matrizLogica[0][i] != 0 && matrizLogica[0][i] == matrizLogica[1][i] && matrizLogica[0][i] == matrizLogica[2][i]) ganador = matrizLogica[0][i];
+        }
 
-	    // 7
-	    JButton b7 = new JButton("");
-	    b7.setFont(font);
-	    b7.setBackground(fondoBtn);
-	    b7.setForeground(textoBtn);
-	    b7.setBorder(bordeBtn);
-	    b7.setFocusPainted(false);
-	    tablero.add(b7);
+        // Revisar diagonales
+        if (matrizLogica[0][0] != 0 && matrizLogica[0][0] == matrizLogica[1][1] && matrizLogica[0][0] == matrizLogica[2][2]) ganador = matrizLogica[0][0];
+        if (matrizLogica[0][2] != 0 && matrizLogica[0][2] == matrizLogica[1][1] && matrizLogica[0][2] == matrizLogica[2][0]) ganador = matrizLogica[0][2];
 
-	    // 8
-	    JButton b8 = new JButton("");
-	    b8.setFont(font);
-	    b8.setBackground(fondoBtn);
-	    b8.setForeground(textoBtn);
-	    b8.setBorder(bordeBtn);
-	    b8.setFocusPainted(false);
-	    tablero.add(b8);
+        // ¿Hay empate?
+        boolean empate = true;
+        for(int f=0; f<3; f++) 
+        {
+            for(int c=0; c<3; c++) 
+            {
+                if(matrizLogica[f][c] == 0) empate = false;
+            }
+        }
 
-	    // 9
-	    JButton b9 = new JButton("O");
-	    b9.setFont(font);
-	    b9.setBackground(fondoBtn);
-	    b9.setForeground(colorO);
-	    b9.setBorder(bordeBtn);
-	    b9.setFocusPainted(false);
-	    tablero.add(b9);
+        // Anuncio del ganador o empate
+        if (ganador != 0)
+        {
+        	// Si ganador no es igual a 1 (X), se entiende que ganó el 2 (O)
+            JOptionPane.showMessageDialog(this, ganador == 1 ? "¡X Gana!" : "¡O Gana!");
+            if(ganador == 1) 
+            {
+            	victoriasX++; 
+            }
+        	else 
+        	{
+        		victoriasO++;
+        	}
 
-	    this.revalidate();
-	    this.repaint();
-	}
+            // Actualizar el contador
+            lblX.setText("X: " + victoriasX);
+            lblO.setText("O: " + victoriasO);
+            
+            // Reinicio del tablero
+            reiniciarTablero(); 
+        } 
+        
+        // En caso de empate
+        else if (empate) 
+        {
+            JOptionPane.showMessageDialog(this, "¡Empate!");
+            reiniciarTablero();
+        }
+    }
+	
+	public void reiniciarTablero()
+    {
+        turnoDeX = true; 
+        lblTurno.setText("Turno de: X");
+        lblTurno.setForeground(colorX);
+        
+        for (int fila = 0; fila < 3; fila++)
+        {
+            for (int col = 0; col < 3; col++)
+            {
+                matrizLogica[fila][col] = 0; 
+                botones[fila][col].setText(""); 
+            }
+        }
+    }
+	
+    class BotonGato extends JButton
+    {
+        int fila;
+        int columna;
+
+        public BotonGato(int fila, int columna)
+        {
+            this.fila = fila;
+            this.columna = columna;
+            this.setFont(new Font("Arial", Font.BOLD, 60));
+            this.setBackground(fondoBoton);
+            this.setBorder(new LineBorder(colorBorde, 2));
+            this.setForeground(textoBoton);
+            this.setFocusPainted(false);
+        }
+    }
 
 	public static void main(String[] args) 
 	{
