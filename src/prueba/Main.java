@@ -1,6 +1,7 @@
 package prueba;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import controllers.AuthController;
 
 public class Main 
 {
@@ -15,7 +16,11 @@ public class Main
 			e.printStackTrace();
 		}
 
+		AuthController controlador = new AuthController();
+        controlador.showLogin();
+		/**
 		Ventana ventana = new Ventana();
 		ventana.setVisible(true);
+		**/
 	}
 }
