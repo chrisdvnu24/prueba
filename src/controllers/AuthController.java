@@ -2,6 +2,8 @@ package controllers;
 
 import views.AuthView;
 import views.RegisterView;
+import views.HomeView;
+import models.AuthModel;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -12,11 +14,15 @@ public class AuthController
 {
     private AuthView vistaLogin;
     private RegisterView vistaRegistro;
+    private HomeView vistaHome;
+    private AuthModel modelo;
 
     public AuthController()
     {
         this.vistaLogin = new AuthView();
         this.vistaRegistro = new RegisterView();
+        this.vistaHome = new HomeView();
+        this.modelo = new AuthModel();
 
         this.vistaLogin.getBtnLogin().addActionListener(new ActionListener()
         {
@@ -67,11 +73,11 @@ public class AuthController
         String user_val = vistaLogin.getUsername();
         String pass_val = vistaLogin.getPassword();
 
-        if (user_val.equals("admin@gmail.com") && pass_val.equals("1234"))
+        if (modelo.autenticar(user_val, pass_val))
         {
-            JOptionPane.showMessageDialog(null, "Bienvenid@");
-            vistaLogin.getUserContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
-            vistaLogin.getPassContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
+            JOptionPane.showMessageDialog(null, "¡Conexión exitosa!");
+            vistaLogin.dispose();
+            vistaHome.showView();
         }
         else
         {
@@ -90,13 +96,13 @@ public class AuthController
         {
             vistaRegistro.getUserContainer().setBorder(new LineBorder(Color.RED, 1, true));
             vistaRegistro.getPassContainer().setBorder(new LineBorder(Color.RED, 1, true));
-            JOptionPane.showMessageDialog(null, "Por favor, rellena todos los campos.");
+            JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else
         {
             vistaRegistro.getUserContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
             vistaRegistro.getPassContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
-            JOptionPane.showMessageDialog(null, "¡Cuenta creada exitosamente!");
+            JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente");
         }
     }
 }
