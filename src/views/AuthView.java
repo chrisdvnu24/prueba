@@ -61,7 +61,7 @@ public class AuthView extends JFrame
         {
         }
 
-        JLabel labelUsuario = new JLabel("Usuario");
+        JLabel labelUsuario = new JLabel("Correo");
         labelUsuario.setBounds(80, 95, 260, 20);
         labelUsuario.setForeground(Color.WHITE);
         labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));

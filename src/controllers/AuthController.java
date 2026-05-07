@@ -75,7 +75,6 @@ public class AuthController
 
         if (modelo.autenticar(user_val, pass_val))
         {
-            JOptionPane.showMessageDialog(null, "¡Conexión exitosa!");
             vistaLogin.dispose();
             vistaHome.showView();
         }
@@ -89,20 +88,37 @@ public class AuthController
 
     private void registrarUsuario()
     {
+        String nombre_val = vistaRegistro.getNombre();
         String user_val = vistaRegistro.getUsername();
         String pass_val = vistaRegistro.getPassword();
 
-        if (user_val.isEmpty() || pass_val.isEmpty())
+        if (nombre_val.isEmpty() || user_val.isEmpty() || pass_val.isEmpty())
         {
+            vistaRegistro.getNombreContainer().setBorder(new LineBorder(Color.RED, 1, true));
             vistaRegistro.getUserContainer().setBorder(new LineBorder(Color.RED, 1, true));
             vistaRegistro.getPassContainer().setBorder(new LineBorder(Color.RED, 1, true));
-            JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int resultado = modelo.registrar(user_val, pass_val, nombre_val);
+
+        if (resultado == 1)
+        {
+            vistaRegistro.getNombreContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
+            vistaRegistro.getUserContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
+            vistaRegistro.getPassContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
+            JOptionPane.showMessageDialog(null, "¡Registro exitoso! Ya puedes iniciar sesión.");
+            vistaRegistro.limpiarCampos();
+        }
+        else if (resultado == 2)
+        {
+            vistaRegistro.getUserContainer().setBorder(new LineBorder(Color.RED, 1, true));
+            JOptionPane.showMessageDialog(null, "Ese nombre de usuario ya está registrado.", "Usuario duplicado", JOptionPane.ERROR_MESSAGE);
         }
         else
         {
-            vistaRegistro.getUserContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
-            vistaRegistro.getPassContainer().setBorder(new LineBorder(Color.GREEN, 1, true));
-            JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente");
+        	JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error crítico", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
