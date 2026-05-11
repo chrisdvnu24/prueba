@@ -61,6 +61,17 @@ public class AuthController
                 vistaLogin.loginView();
             }
         });
+
+        this.vistaHome.getBtnGoToUsers().addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                vistaHome.setVisible(false);
+                UsersController panelUsuarios = new UsersController(vistaHome);
+                panelUsuarios.showUsers();
+            }
+        });
     }
 
     public void showLogin()
@@ -118,7 +129,7 @@ public class AuthController
         }
         else
         {
-        	JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error crítico", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error crítico", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
