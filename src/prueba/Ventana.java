@@ -69,7 +69,7 @@ public class Ventana extends JFrame
 		
 		
 		//calculadoraLayout();
-		//login();
+		login();
 		//registro();
 		//usuarios();
 		//calculadora();
@@ -79,7 +79,7 @@ public class Ventana extends JFrame
 		//casa();
 		//mario();
 		//menu();
-		diseñoGato();
+		//diseñoGato();
 		
 		this.setVisible(true);
 	}

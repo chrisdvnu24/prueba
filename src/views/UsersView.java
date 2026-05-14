@@ -11,6 +11,7 @@ public class UsersView extends JFrame
     private JTable tablaUsuarios;
     private DefaultTableModel modeloTabla;
     private JButton btnVolver;
+    private JButton btnNuevoRegistro;
 
     public UsersView()
     {
@@ -34,6 +35,12 @@ public class UsersView extends JFrame
         JPanel panelInferior = new JPanel();
         panelInferior.setBackground(new Color(28, 28, 28));
         
+        btnNuevoRegistro = new JButton("Nuevo Registro");
+        btnNuevoRegistro.setBackground(new Color(255, 155, 68));
+        btnNuevoRegistro.setForeground(Color.WHITE);
+        btnNuevoRegistro.setFocusPainted(false);
+        panelInferior.add(btnNuevoRegistro);
+
         btnVolver = new JButton("Volver al Inicio");
         btnVolver.setBackground(new Color(90, 90, 90));
         btnVolver.setForeground(Color.WHITE);
@@ -42,11 +49,13 @@ public class UsersView extends JFrame
         
         add(panelInferior, BorderLayout.SOUTH);
 
-        tableUsers();
+        cargarTabla();
     }
 
-    public void tableUsers()
+    public void cargarTabla()
     {
+        modeloTabla.setRowCount(0);
+
         User usuarioModel = new User();
         ArrayList<User> listaUsuarios = usuarioModel.get();
 
@@ -68,5 +77,10 @@ public class UsersView extends JFrame
     public JButton getBtnVolver()
     {
         return btnVolver;
+    }
+
+    public JButton getBtnNuevoRegistro()
+    {
+        return btnNuevoRegistro;
     }
 }

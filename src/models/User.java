@@ -64,6 +64,33 @@ public class User
         return users;
     }
 
+    public boolean registrarUsuario(User u)
+    {
+        String url = "jdbc:mysql://localhost:3306/sistema_login";
+        String userDB = "app_java";
+        String passDB = "Proyecto123";
+
+        try (Connection conn = DriverManager.getConnection(url, userDB, passDB))
+        {
+            String query = "INSERT INTO usuarios (username, password, nombre_completo) VALUES (?, ?, ?)";
+            
+            try (PreparedStatement stmt = conn.prepareStatement(query))
+            {
+                stmt.setString(1, u.getUsername());
+                stmt.setString(2, u.getPassword());
+                stmt.setString(3, u.getNombre_completo());
+
+                stmt.executeUpdate();
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public int getId() 
     {
         return id;
