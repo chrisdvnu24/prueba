@@ -10,9 +10,9 @@ public class AuthModel
 {
     public boolean autenticar(String usuario, String contrasena)
     {
-        String url = "jdbc:mysql://localhost:3306/sistema_login";
-        String userDB = "app_java";
-        String passDB = "Proyecto123"; 
+        String url = "jdbc:mysql://sql.freedb.tech:3306/freedb_8k1k15nA";
+        String userDB = "u_I9EvB5";
+        String passDB = "ad8mYJ6w9iFN"; 
 
         try (Connection conn = DriverManager.getConnection(url, userDB, passDB))
         {
@@ -38,9 +38,9 @@ public class AuthModel
 
     public int registrar(String usuario, String contrasena, String nombre)
     {
-        String url = "jdbc:mysql://localhost:3306/sistema_login";
-        String userDB = "app_java";
-        String passDB = "Proyecto123";
+    	String url = "jdbc:mysql://sql.freedb.tech:3306/freedb_8k1k15nA";
+        String userDB = "u_I9EvB5";
+        String passDB = "ad8mYJ6w9iFN"; 
 
         try (Connection conn = DriverManager.getConnection(url, userDB, passDB))
         {

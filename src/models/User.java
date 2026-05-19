@@ -30,10 +30,10 @@ public class User
     {
         ArrayList<User> users = new ArrayList<>();
                 
-        String url = "jdbc:mysql://localhost:3306/sistema_login";
-        String userDB = "app_java";
-        String passDB = "Proyecto123"; 
-
+        String url = "jdbc:mysql://sql.freedb.tech:3306/freedb_8k1k15nA";
+        String userDB = "u_I9EvB5";
+        String passDB = "ad8mYJ6w9iFN"; 
+        
         try (Connection conn = DriverManager.getConnection(url, userDB, passDB))
         {
             String query = "SELECT * FROM usuarios";
@@ -66,9 +66,9 @@ public class User
 
     public boolean registrarUsuario(User u)
     {
-        String url = "jdbc:mysql://localhost:3306/sistema_login";
-        String userDB = "app_java";
-        String passDB = "Proyecto123";
+    	String url = "jdbc:mysql://sql.freedb.tech:3306/freedb_8k1k15nA";
+        String userDB = "u_I9EvB5";
+        String passDB = "ad8mYJ6w9iFN"; 
 
         try (Connection conn = DriverManager.getConnection(url, userDB, passDB))
         {
